@@ -1,0 +1,4 @@
+/node_modules
+/workouts_list
+/workout_details
+.env
