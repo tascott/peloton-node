@@ -1,22 +1,151 @@
 # Peloton Music API
 
-A Node.js application that fetches and stores music data from Peloton workouts.
+A Node.js application that extracts and stores music playlists from Peloton workouts, implementing robust error handling, rate limiting, and data persistence.
 
 ## Features
 
-- Fetches workout data from the Peloton API
-- Stores workout and music information in a PostgreSQL database
-- Creates JSON backups of workout data
-- Implements rate limiting to respect API constraints
-- Tracks progress and maintains session state
+- Authenticates with Peloton's API using session-based authentication
+- Fetches paginated workout data with configurable batch sizes
+- Implements exponential backoff retry mechanism for API failures
+- Maintains persistent session tokens and request progress
+- Stores normalized workout and music data in PostgreSQL
+- Creates JSON backups with atomic write operations
+- Handles rate limiting with configurable delays and jitter
 
-## Logic
-- Fetches every available workout for *cycling* from the Peloton API
+## Technical Architecture
+
+### File Structure
+```
+├── auth.js                 # Peloton authentication handling
+├── db.js                   # Initial workout database operations
+├── db_detailed.js          # Detailed workout database operations
+├── fetchWorkoutDetails.js  # Core API fetching logic
+├── fetchDetailedWorkouts.js# Main processing and detailed DB population
+├── index.js               # Application entry point
+├── saveWorkouts.js        # Initial workout saving logic
+├── session.json           # Stores authentication session
+└── progress.json          # Tracks processing progress
+```
+
+### Two-Database Architecture
+The application uses two separate PostgreSQL databases for different stages of data collection:
+
+1. Initial Database (`peloton_workouts`)
+   - Stores basic workout information from list endpoint
+   - Managed by `db.js`
+   - Acts as a source for workout IDs to process
+
+2. Detailed Database (`peloton_detailed`)
+   - Stores comprehensive workout and music information
+   - Managed by `db_detailed.js`
+   - Contains normalized tables for workouts, instructors, and songs
+
+### Data Flow
+1. Initial Workout List Collection (`saveWorkouts.js`)
+   - Fetches paginated workout lists (50 workouts per page)
+   - Extracts basic workout metadata (id, title, etc.)
+   - Stores in `peloton_workouts` database
+   - Creates JSON backups in `/workouts_list/`
+
+2. Detailed Workout Processing (`fetchDetailedWorkouts.js`)
+   - Uses `fetchWorkoutDetails.js` for API calls
+   - Queries `peloton_workouts` database for unprocessed ride IDs
+   - Fetches detailed workout data for each ride ID
+   - Populates `peloton_detailed` database with:
+     - Instructor information
+     - Detailed workout metadata
+     - Complete song playlists
+   - Creates detailed JSON backups in `/workout_details/`
+
+### Database Schemas
+
+#### Initial Database (peloton_workouts)
+```sql
+CREATE TABLE workouts (
+    id VARCHAR PRIMARY KEY,
+    title VARCHAR,
+    instructor_name VARCHAR,
+    created_at TIMESTAMP,
+    difficulty DECIMAL,
+    length INTEGER,
+    processed BOOLEAN DEFAULT FALSE,
+    processed_at TIMESTAMP
+);
+```
+
+#### Detailed Database (peloton_detailed)
+```sql
+-- Instructors table
+CREATE TABLE instructors (
+    id TEXT PRIMARY KEY,
+    name TEXT,
+    image_url TEXT
+);
+
+-- Detailed workouts table
+CREATE TABLE detailed_workouts (
+    id TEXT PRIMARY KEY,
+    title TEXT,
+    duration INTEGER,
+    image_url TEXT,
+    instructor_id TEXT REFERENCES instructors(id),
+    description TEXT,
+    fitness_discipline TEXT,
+    scheduled_time TIMESTAMP,
+    difficulty_rating_avg NUMERIC,
+    full_details JSONB
+);
+
+-- Songs table with text search capabilities
+CREATE TABLE songs (
+    id SERIAL PRIMARY KEY,
+    workout_id TEXT REFERENCES detailed_workouts(id) ON DELETE CASCADE,
+    title TEXT,
+    artist_names TEXT,
+    image_url TEXT,
+    playlist_order INTEGER
+);
+
+-- Indexes for efficient querying
+CREATE INDEX idx_songs_artist_names ON songs USING gin (artist_names gin_trgm_ops);
+CREATE INDEX idx_songs_title ON songs(title);
+CREATE INDEX idx_workouts_scheduled_time ON detailed_workouts(scheduled_time);
+CREATE INDEX idx_workouts_instructor ON detailed_workouts(instructor_id);
+```
+
+### Authentication Flow
+- Uses Peloton's session-based auth system
+- Stores session tokens in `session.json` with auto-refresh
+- Implements token rotation on 401 responses
+
+### Processing Flow Example
+```sql
+-- 1. After initial workout list fetch
+INSERT INTO workouts (id, title, created_at)
+VALUES ('123', 'Morning Ride', '2024-03-15');
+
+-- 2. Query for unprocessed workouts
+SELECT id FROM workouts WHERE processed = FALSE;
+
+-- 3. After fetching workout details
+UPDATE workouts
+SET
+    instructor_name = 'Alex Toussaint',
+    difficulty = 8.2,
+    length = 1800,
+    processed = TRUE,
+    processed_at = CURRENT_TIMESTAMP
+WHERE id = '123';
+
+-- 4. Insert associated songs
+INSERT INTO songs (workout_id, title, artist)
+VALUES ('123', 'Song Title', 'Artist Name');
+```
 
 ## Prerequisites
 
-- Node.js
-- PostgreSQL database
+- Node.js 14+
+- PostgreSQL 12+
 - Peloton account credentials
 
 ## Installation
@@ -26,65 +155,140 @@ A Node.js application that fetches and stores music data from Peloton workouts.
 ```bash
 npm install
 ```
-3. Create a `.env` file with the following variables:
+
+3. Set up PostgreSQL databases:
+```sql
+CREATE DATABASE peloton_workouts;
+CREATE DATABASE peloton_detailed;
 ```
+
+4. Configure environment variables in `.env`:
+```env
 DB_USER=your_db_user
 DB_HOST=your_db_host
-DB_NAME=your_db_name
 DB_PASSWORD=your_db_password
 DB_PORT=your_db_port
+PELOTON_USERNAME=your_peloton_email
+PELOTON_PASSWORD=your_peloton_password
 ```
-
-## Directory Structure
-
-- `/workouts_list` - Contains JSON backups of workout lists
-- `/workout_details` - Contains detailed workout information
-- `session.json` - Stores the current session ID
-- `progress.json` - Tracks the most recently fetched workout ID
-- `index.js` - Main application file
-- `test_db.js` - Database testing utilities
 
 ## Usage
 
-Run the application:
 ```bash
-node index.js
+# Fetch initial workout list (50 workouts per page)
+node index.js                  # Fetches first 200 workouts
+node index.js --total 500     # Fetch specific number of workouts
+node index.js --all           # Fetch all available workouts
+
+# Save workouts to initial database with duplicate checking
+node saveWorkouts.js          # Fetches and saves new workouts to peloton_workouts
+                             # Automatically stops when reaching already saved workouts
+
+# Process detailed workout information
+node fetchDetailedWorkouts.js                    # Process all unprocessed workouts one by one
+node fetchDetailedWorkouts.js --batch-size 10    # Process in batches of 10
+node fetchDetailedWorkouts.js --concurrent 5     # Process 5 workouts concurrently
+node fetchDetailedWorkouts.js --force            # Reprocess all workouts, even if already processed
+
+# Resume operations
+node saveWorkouts.js --resume         # Resume initial workout collection
+node fetchDetailedWorkouts.js --resume # Resume detailed processing
 ```
 
-The application will:
-1. Connect to the PostgreSQL database
-2. Load any existing session
-3. Fetch new workouts from Peloton
-4. Process workout details and music data
-5. Store data in the database
-6. Create JSON backups
+### Rate Limiting & Batch Processing
 
-## API Endpoints Used
+#### Initial Collection (`index.js`, `saveWorkouts.js`)
+- Fetches workouts in pages of 50 (API limit)
+- 2-second delay between page requests
+- Checks for duplicates before saving
+- Stops automatically when reaching previously saved workouts
 
-- `https://api.onepeloton.com/api/v2/ride/archived?browse_category=cycling&limit=50&page=0` - Main Peloton API endpoint for rides. It returns a list of objects as seen in `exampleListData.json`
-- `https://api.onepeloton.com/api/ride/{id}` - Returns an indivudual ride object. It returns a list of objects as seen in `exampleIndividualRideData.json`. The instructor name is located at `instructor.name`. The songs are at `playlist.songs`. Within the playlist.songs array, the artist name is at `artists[0].artist_name` and the song name is at `title`.
+#### Detailed Processing (`fetchDetailedWorkouts.js`)
+- Default: Processes one workout at a time
+- Configurable batch size (--batch-size)
+- Concurrent processing option (--concurrent)
+- 1-second delay between individual workout requests
+- Transaction-based saving to ensure data consistency
+
+## Core Components
+
+### Authentication (`auth.js`)
+- Handles Peloton API authentication
+- Manages session token lifecycle
+- Implements token refresh logic
+
+### Initial Database Operations (`db.js`)
+- Manages PostgreSQL connection pool for `peloton_workouts`
+- Handles transaction management for initial workout data
+- Implements batch inserts for workout lists
+
+### Detailed Database Operations (`db_detailed.js`)
+- Manages PostgreSQL connection pool for `peloton_detailed`
+- Handles transaction management for detailed workout data
+- Implements normalized data storage across multiple tables
+
+### API Integration
+- `fetchWorkoutDetails.js`: Core API fetching logic for individual workouts
+- `fetchDetailedWorkouts.js`: Orchestrates detailed data collection and storage
+- Implements rate limiting and error handling
+
+## API Endpoints
+
+### Workout List Endpoint
+```
+GET https://api.onepeloton.com/api/v2/ride/archived
+Query Parameters:
+- browse_category: "cycling"
+- limit: 50 (max)
+- page: 0-n
+```
+
+### Detailed Workout Endpoint
+```
+GET https://api.onepeloton.com/api/ride/{id}
+Response Structure:
+- instructor.name: Instructor information
+- playlist.songs[]: Array of song objects
+  - artists[0].artist_name: Primary artist
+  - title: Song title
+```
 
 ## Configuration
 
-- `RATE_LIMIT_DELAY`: 1 second (configurable delay between API requests to respect rate limits)
-- `BATCH_SIZE`: 100 (number of workouts processed in each JSON backup batch)
+### Rate Limiting
+- Default delay: 1000ms between requests
+- Jitter: ±200ms to prevent thundering herd
+- Exponential backoff: Base 2 with max 5 retries
 
-## Dependencies
-
-- `axios`: ^1.7.9 - HTTP client for API requests
-- `dotenv`: ^16.4.7 - Environment variable management
-- `pg`: ^8.13.1 - PostgreSQL client
+### Batch Processing
+- Workout list batch size: 50 (API limit)
+- Detail processing batch size: 100
+- Database insert batch size: 1000
 
 ## Error Handling
 
-The application includes:
-- Session management and recovery
-- Progress tracking to resume interrupted operations
-- API rate limiting
-- Database connection error handling
+- Network failures: Exponential backoff retry
+- Authentication errors: Auto-refresh of session tokens
+- Database errors: Transaction rollback and retry
+- File system errors: Atomic writes with temp files
+- Progress tracking: Resume-able operations
 
-## Data Backup
+## Data Storage
 
-Workout data is backed up in two ways:
-1. PostgreSQL database storage
-2. JSON file backups in the `workouts_list` and `workout_details` directories
+### Database
+- Primary storage in PostgreSQL
+- Normalized schema for efficient querying
+- Foreign key constraints for data integrity
+
+### Backup Files
+- `/workouts_list/`: Paginated workout lists
+- `/workout_details/`: Individual workout data
+- `session.json`: Authentication state
+- `progress.json`: Processing checkpoint data
+
+## Dependencies
+
+- `axios`: ^1.7.9 - HTTP client with interceptors
+- `dotenv`: ^16.4.7 - Environment configuration
+- `pg`: ^8.13.1 - PostgreSQL client
+- `fs-extra`: ^11.1.0 - Enhanced file operations

@@ -26,7 +26,7 @@ async function initDB() {
     try {
         const client = await pool.connect();
         await client.query(createTableQuery);
-        console.log("✅ Database initialized (workouts table created if not exists).");
+        console.log("Database initialized (workouts table created if not exists).");
         client.release();
     } catch(err) {
         console.error("❌ Database error:",err);

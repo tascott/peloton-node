@@ -59,8 +59,6 @@ async function fetchAndSaveWorkouts() {
             // ✅ Save to PostgreSQL
             await saveWorkoutsToDB(workouts);
             console.log(`💾 Saved ${newEntries} new workouts to DB.`);
-
-            console.log(`⏳ Waiting ${RATE_LIMIT_DELAY / 1000} seconds to prevent rate limits...`);
             await new Promise(resolve => setTimeout(resolve,RATE_LIMIT_DELAY));
 
         } catch(error) {

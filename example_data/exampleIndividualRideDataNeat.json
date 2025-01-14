@@ -1,0 +1,42 @@
+{
+	"ride": {
+		"id": "266bbc93a1bb4e32a762181be49ade85",
+		"title": "30 min 80s Ride",
+		"duration": 1800,
+		"image_url": "https://s3.amazonaws.com/peloton-ride-images/eefa20f9b63f0c57ccd7a047d46f044617278eec/img_1734876290_8fedf205e0f94ec38f1b81e665284fde.png",
+		"instructor": {
+			"id": "c0a9505d8135412d824cf3c97406179b",
+			"name": "Leanne Hainsby-Alldis"
+		},
+		"description": "Take a ride through the classic tracks of the 80s while you sweat it out on the Bike.",
+		"fitness_discipline": "cycling",
+		"scheduled_start_time": 1734868800,
+		"difficulty_rating_avg": 7.508313885647608,
+	},
+	"playlist": {
+		"songs": [
+			{
+				"title": "Never Too Much",
+				"artists": [
+					{
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/8c3754a5-6a33-46d1-a822-21b061cfdc9f/orig_bf0052d37cdb5289a3f426b5240a5841_T43.jpg",
+						"artist_name": "Luther Vandross"
+					}
+				]
+			},
+			{
+				"title": "Take on Me",
+				"artists": [
+					{
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/1a3908d2-7295-4613-9092-679b5162962c/product/612bdaf5-7b16-4b7d-ac41-833ba8085c64/orig_603497879298.jpg",
+						"artist_name": "A-Ha",
+					},
+					{
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/0e223911-68d5-4a5c-b450-ab27f82df9c6/orig_98da12b76b2dc1d4f4f471dcdc0e37f2_T25.jpg",
+						"artist_name": "a-ha"
+					}
+				]
+			}
+		]
+	}
+}

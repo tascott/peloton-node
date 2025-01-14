@@ -8,9 +8,7 @@ const TOTAL_WORKOUTS = 200;  // Fetch 200 rides
 const RATE_LIMIT_DELAY = 1000; // 1-second delay to prevent rate limiting
 
 async function fetchRecentCyclingWorkouts() {
-    const SESSION_ID = await authenticatePeloton(); // 🔹 Get session from auth.js
-
-    console.log("\n📡 Using Session ID:",SESSION_ID);
+    const SESSION_ID = await authenticatePeloton();
 
     let page = 0;
     let fetchedWorkouts = 0;
@@ -27,13 +25,8 @@ async function fetchRecentCyclingWorkouts() {
             'Cookie': `peloton_session_id=${SESSION_ID}`
         };
 
-        console.log(`\n🔄 Fetching: ${url}`);
-        console.log("🔍 Headers:",headers);
-
         try {
             const response = await axios.get(url,{headers});
-
-            console.log("✅ Response received!");
             const workouts = response.data.data;
 
             workouts.forEach(workout => {
