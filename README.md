@@ -6,10 +6,8 @@ A Node.js application that extracts and stores music playlists from Peloton work
 
 - Authenticates with Peloton's API using session-based authentication
 - Fetches paginated workout data with configurable batch sizes
-- Implements exponential backoff retry mechanism for API failures
 - Maintains persistent session tokens and request progress
 - Stores normalized workout and music data in PostgreSQL
-- Creates JSON backups with atomic write operations
 - Handles rate limiting with configurable delays and jitter
 
 ## Technical Architecture
@@ -54,8 +52,7 @@ The application uses two separate PostgreSQL databases for different stages of d
    - Populates `peloton_detailed` database with:
      - Instructor information
      - Detailed workout metadata
-     - Complete song playlists
-   - Creates detailed JSON backups in `/workout_details/`
+     - Song playlists
 
 ### Database Schemas
 
@@ -225,7 +222,6 @@ node fetchDetailedWorkouts.js --resume # Resume detailed processing
 ### Detailed Database Operations (`db_detailed.js`)
 - Manages PostgreSQL connection pool for `peloton_detailed`
 - Handles transaction management for detailed workout data
-- Implements normalized data storage across multiple tables
 
 ### API Integration
 - `fetchWorkoutDetails.js`: Core API fetching logic for individual workouts
@@ -257,34 +253,19 @@ Response Structure:
 
 ### Rate Limiting
 - Default delay: 1000ms between requests
-- Jitter: ±200ms to prevent thundering herd
-- Exponential backoff: Base 2 with max 5 retries
 
 ### Batch Processing
 - Workout list batch size: 50 (API limit)
 - Detail processing batch size: 100
-- Database insert batch size: 1000
 
 ## Error Handling
-
-- Network failures: Exponential backoff retry
 - Authentication errors: Auto-refresh of session tokens
-- Database errors: Transaction rollback and retry
-- File system errors: Atomic writes with temp files
 - Progress tracking: Resume-able operations
 
 ## Data Storage
 
 ### Database
 - Primary storage in PostgreSQL
-- Normalized schema for efficient querying
-- Foreign key constraints for data integrity
-
-### Backup Files
-- `/workouts_list/`: Paginated workout lists
-- `/workout_details/`: Individual workout data
-- `session.json`: Authentication state
-- `progress.json`: Processing checkpoint data
 
 ## Dependencies
 
