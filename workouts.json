@@ -1,0 +1,562 @@
+[
+  {
+    "content_availability": "available",
+    "content_availability_level": "digital_and_above",
+    "free_for_limited_time": false,
+    "is_limited_ride": false,
+    "availability": {
+      "is_available": true,
+      "reason": null
+    },
+    "class_type_ids": [
+      "57dbf6f9a4904a9f80e302380855bdb7"
+    ],
+    "content_provider": "peloton",
+    "content_format": "video",
+    "description": "The key to progress is preparation. Take a few minutes to wake up your muscles and elevate your heart rate before tackling your ride.",
+    "difficulty_estimate": 4.8,
+    "overall_estimate": 0.9534883720930233,
+    "difficulty_rating_avg": 4.8,
+    "difficulty_rating_count": 35,
+    "difficulty_level": null,
+    "duration": 300,
+    "equipment_ids": [],
+    "equipment_tags": [],
+    "explicit_rating": 1,
+    "extra_images": null,
+    "fitness_discipline": "cycling",
+    "fitness_discipline_display_name": "Cycling",
+    "has_closed_captions": true,
+    "has_pedaling_metrics": true,
+    "home_peloton_id": "00773651b2784d84a91262fb48987a34",
+    "id": "15cb779304024a4791f56e4152decb45",
+    "image_url": "https://s3.amazonaws.com/peloton-ride-images/84d387bb471b095e1822a049dd0e5aab82ba232b/img_1730843711_528c61fe8e9e4c1199d694c33ac840a4.png",
+    "instructor_id": "05735e106f0747d2a112d32678be8afd",
+    "individual_instructor_ids": [],
+    "is_archived": true,
+    "is_closed_caption_shown": true,
+    "is_explicit": true,
+    "has_free_mode": false,
+    "is_live_in_studio_only": true,
+    "language": "english",
+    "origin_locale": "en-US",
+    "length": 323,
+    "live_stream_id": "15cb779304024a4791f56e4152decb45-live",
+    "live_stream_url": null,
+    "location": "psny-studio-1",
+    "metrics": [
+      "heart_rate",
+      "cadence",
+      "calories"
+    ],
+    "muscle_group_score": [],
+    "original_air_time": 1736830800,
+    "overall_rating_avg": 0.9534883720930233,
+    "overall_rating_count": 43,
+    "pedaling_start_offset": 1,
+    "pedaling_end_offset": 301,
+    "pedaling_duration": 300,
+    "rating": 0,
+    "ride_type_id": "57dbf6f9a4904a9f80e302380855bdb7",
+    "ride_type_ids": [
+      "57dbf6f9a4904a9f80e302380855bdb7"
+    ],
+    "sample_vod_stream_url": null,
+    "sample_preview_stream_url": null,
+    "scheduled_start_time": 1736830800,
+    "series_id": "81731af7a4864f9fb2490068a229e734",
+    "sold_out": false,
+    "studio_peloton_id": "3cce2a88ea384fe1a80332346f2cf888",
+    "title": "5 min Warm Up Ride",
+    "total_ratings": 223,
+    "total_in_progress_workouts": 19,
+    "total_workouts": 100,
+    "vod_stream_url": "https://amd-vod.akamaized.net/classes/cycling/11-2024/15cb779304024a4791f56e4152decb45/1/master.m3u8",
+    "vod_stream_id": "15cb779304024a4791f56e4152decb45-vod",
+    "captions": [
+      "en-US"
+    ],
+    "user_caption_locales": [
+      {
+        "locale": "en-US",
+        "slugs": [
+          {
+            "type": "en",
+            "display_names": {
+              "en-US": "English",
+              "de-DE": "Englisch",
+              "es-ES": "Inglés",
+              "fr-FR": "Anglais"
+            }
+          }
+        ]
+      }
+    ],
+    "join_tokens": {
+      "on_demand": "eyJob21lX3BlbG90b25faWQiOiBudWxsLCAicmlkZV9pZCI6ICIxNWNiNzc5MzA0MDI0YTQ3OTFmNTZlNDE1MmRlY2I0NSIsICJzdHVkaW9fcGVsb3Rvbl9pZCI6IG51bGwsICJ0eXBlIjogIm9uX2RlbWFuZCJ9"
+    },
+    "flags": [],
+    "is_dynamic_video_eligible": false,
+    "is_fixed_distance": false,
+    "dynamic_video_recorded_speed_in_mph": 0,
+    "thumbnail_title": null,
+    "thumbnail_location": null,
+    "distance": null,
+    "distance_unit": null,
+    "distance_display_value": null,
+    "is_outdoor": false,
+    "is_sessions_eligible": false,
+    "total_user_workouts": 0,
+    "total_following_workouts": 0,
+    "is_favorite": false,
+    "has_tread_pace_target": false
+  },
+  {
+    "content_availability": "available",
+    "content_availability_level": "digital_and_above",
+    "free_for_limited_time": false,
+    "is_limited_ride": false,
+    "availability": {
+      "is_available": true,
+      "reason": null
+    },
+    "class_type_ids": [
+      "c87e20095d80463db5ce04df7fe2b989"
+    ],
+    "content_provider": "peloton",
+    "content_format": "video",
+    "description": "Old school, new school, East Coast and West Coast. Sweat to the beats of the hottest hip hop throughout history.",
+    "difficulty_estimate": 7.7471042471042475,
+    "overall_estimate": 1,
+    "difficulty_rating_avg": 7.7471042471042475,
+    "difficulty_rating_count": 518,
+    "difficulty_level": null,
+    "duration": 1800,
+    "equipment_ids": [],
+    "equipment_tags": [],
+    "explicit_rating": 1,
+    "extra_images": null,
+    "fitness_discipline": "cycling",
+    "fitness_discipline_display_name": "Cycling",
+    "has_closed_captions": true,
+    "has_pedaling_metrics": true,
+    "home_peloton_id": "c39845e4ef2c47b7bbbf2ba0f3cd074a",
+    "id": "2defbf2344d14531ba1befee48359224",
+    "image_url": "https://s3.amazonaws.com/peloton-ride-images/b33ecdfcebafaf429bc29ed5cc52a9d64de1b50d/img_1736811058_686d96151d584092a7386f2252bcce35.png",
+    "instructor_id": "2e57092bee334c8c8dcb9fe16ba5308c",
+    "individual_instructor_ids": [],
+    "is_archived": true,
+    "is_closed_caption_shown": true,
+    "is_explicit": true,
+    "has_free_mode": false,
+    "is_live_in_studio_only": false,
+    "language": "english",
+    "origin_locale": "en-US",
+    "length": 1963,
+    "live_stream_id": "2defbf2344d14531ba1befee48359224-live",
+    "live_stream_url": null,
+    "location": "psny-studio-1",
+    "metrics": [
+      "heart_rate",
+      "cadence",
+      "calories"
+    ],
+    "muscle_group_score": [],
+    "original_air_time": 1736807100,
+    "overall_rating_avg": 1,
+    "overall_rating_count": 467,
+    "pedaling_start_offset": 60,
+    "pedaling_end_offset": 1860,
+    "pedaling_duration": 1800,
+    "rating": 0,
+    "ride_type_id": "c87e20095d80463db5ce04df7fe2b989",
+    "ride_type_ids": [
+      "c87e20095d80463db5ce04df7fe2b989"
+    ],
+    "sample_vod_stream_url": null,
+    "sample_preview_stream_url": null,
+    "scheduled_start_time": 1736807400,
+    "series_id": "0eb83da6486e45f78d2d4a865009330d",
+    "sold_out": false,
+    "studio_peloton_id": "c48d2e1dc15044788b78f876d8ea50c9",
+    "title": "30 min Hip Hop Ride",
+    "total_ratings": 3159,
+    "total_in_progress_workouts": 79,
+    "total_workouts": 1000,
+    "vod_stream_url": "https://amd-vod.akamaized.net/classes/cycling/01-2025/2defbf2344d14531ba1befee48359224/1/master.m3u8",
+    "vod_stream_id": "2defbf2344d14531ba1befee48359224-vod",
+    "captions": [
+      "en-US"
+    ],
+    "user_caption_locales": [
+      {
+        "locale": "en-US",
+        "slugs": [
+          {
+            "type": "en",
+            "display_names": {
+              "en-US": "English",
+              "de-DE": "Englisch",
+              "es-ES": "Inglés",
+              "fr-FR": "Anglais"
+            }
+          }
+        ]
+      }
+    ],
+    "join_tokens": {
+      "on_demand": "eyJob21lX3BlbG90b25faWQiOiBudWxsLCAicmlkZV9pZCI6ICIyZGVmYmYyMzQ0ZDE0NTMxYmExYmVmZWU0ODM1OTIyNCIsICJzdHVkaW9fcGVsb3Rvbl9pZCI6IG51bGwsICJ0eXBlIjogIm9uX2RlbWFuZCJ9"
+    },
+    "flags": [],
+    "is_dynamic_video_eligible": false,
+    "is_fixed_distance": false,
+    "dynamic_video_recorded_speed_in_mph": 0,
+    "thumbnail_title": null,
+    "thumbnail_location": null,
+    "distance": null,
+    "distance_unit": null,
+    "distance_display_value": null,
+    "is_outdoor": false,
+    "is_sessions_eligible": true,
+    "total_user_workouts": 0,
+    "total_following_workouts": 0,
+    "is_favorite": false,
+    "has_tread_pace_target": false
+  },
+  {
+    "content_availability": "available",
+    "content_availability_level": "digital_and_above",
+    "free_for_limited_time": false,
+    "is_limited_ride": false,
+    "availability": {
+      "is_available": true,
+      "reason": null
+    },
+    "class_type_ids": [
+      "c87e20095d80463db5ce04df7fe2b989"
+    ],
+    "content_provider": "peloton",
+    "content_format": "video",
+    "description": "Take a ride through the classic rock tracks of the 80s while you sweat it out on the Bike.",
+    "difficulty_estimate": 7.683116883116883,
+    "overall_estimate": 1,
+    "difficulty_rating_avg": 7.683116883116883,
+    "difficulty_rating_count": 385,
+    "difficulty_level": null,
+    "duration": 1800,
+    "equipment_ids": [],
+    "equipment_tags": [],
+    "explicit_rating": 0,
+    "extra_images": null,
+    "fitness_discipline": "cycling",
+    "fitness_discipline_display_name": "Cycling",
+    "has_closed_captions": true,
+    "has_pedaling_metrics": true,
+    "home_peloton_id": "c2bfc0a9b01c4fd3bdf51e78241b63a5",
+    "id": "831b9ac003624282a0e077dfbd4bbd3c",
+    "image_url": "https://s3.amazonaws.com/peloton-ride-images/d6312d56dd0e54dc7c28a468d4813a1033cdbd63/img_1736804351_53515b745d0a4bf4a962b82c84c78b79.png",
+    "instructor_id": "4672db841da0495caf4b8f9cda405512",
+    "individual_instructor_ids": [],
+    "is_archived": true,
+    "is_closed_caption_shown": true,
+    "is_explicit": false,
+    "has_free_mode": false,
+    "is_live_in_studio_only": false,
+    "language": "english",
+    "origin_locale": "en-US",
+    "length": 1990,
+    "live_stream_id": "831b9ac003624282a0e077dfbd4bbd3c-live",
+    "live_stream_url": null,
+    "location": "psl-studio-1",
+    "metrics": [
+      "heart_rate",
+      "cadence",
+      "calories"
+    ],
+    "muscle_group_score": [],
+    "original_air_time": 1736792760,
+    "overall_rating_avg": 1,
+    "overall_rating_count": 368,
+    "pedaling_start_offset": 60,
+    "pedaling_end_offset": 1860,
+    "pedaling_duration": 1800,
+    "rating": 0,
+    "ride_type_id": "c87e20095d80463db5ce04df7fe2b989",
+    "ride_type_ids": [
+      "c87e20095d80463db5ce04df7fe2b989"
+    ],
+    "sample_vod_stream_url": null,
+    "sample_preview_stream_url": null,
+    "scheduled_start_time": 1736793000,
+    "series_id": "b0ad10ecd1e14c9e88c3bccb68424182",
+    "sold_out": false,
+    "studio_peloton_id": "a9ab5f0097e84a9cbbe44234bfccc1d3",
+    "title": "30 min 80s Rock Ride",
+    "total_ratings": 2411,
+    "total_in_progress_workouts": 43,
+    "total_workouts": 1000,
+    "vod_stream_url": "https://amd-vod.akamaized.net/classes/cycling/01-2025/831b9ac003624282a0e077dfbd4bbd3c/1/master.m3u8",
+    "vod_stream_id": "831b9ac003624282a0e077dfbd4bbd3c-vod",
+    "captions": [
+      "en-US"
+    ],
+    "user_caption_locales": [
+      {
+        "locale": "en-US",
+        "slugs": [
+          {
+            "type": "en",
+            "display_names": {
+              "en-US": "English",
+              "de-DE": "Englisch",
+              "es-ES": "Inglés",
+              "fr-FR": "Anglais"
+            }
+          }
+        ]
+      }
+    ],
+    "join_tokens": {
+      "on_demand": "eyJob21lX3BlbG90b25faWQiOiBudWxsLCAicmlkZV9pZCI6ICI4MzFiOWFjMDAzNjI0MjgyYTBlMDc3ZGZiZDRiYmQzYyIsICJzdHVkaW9fcGVsb3Rvbl9pZCI6IG51bGwsICJ0eXBlIjogIm9uX2RlbWFuZCJ9"
+    },
+    "flags": [],
+    "is_dynamic_video_eligible": false,
+    "is_fixed_distance": false,
+    "dynamic_video_recorded_speed_in_mph": 0,
+    "thumbnail_title": null,
+    "thumbnail_location": null,
+    "distance": null,
+    "distance_unit": null,
+    "distance_display_value": null,
+    "is_outdoor": false,
+    "is_sessions_eligible": false,
+    "total_user_workouts": 0,
+    "total_following_workouts": 0,
+    "is_favorite": false,
+    "has_tread_pace_target": false
+  },
+  {
+    "content_availability": "available",
+    "content_availability_level": "digital_and_above",
+    "free_for_limited_time": false,
+    "is_limited_ride": false,
+    "availability": {
+      "is_available": true,
+      "reason": null
+    },
+    "class_type_ids": [
+      "59a49f882ea9475faa3110d50a8fb3f3"
+    ],
+    "content_provider": "peloton",
+    "content_format": "video",
+    "description": "This class is spent primarily in the saddle to give your joints a smooth ride while still giving you a good sweat. Perfect for all levels, especially those recovering from an injury.",
+    "difficulty_estimate": 6.122754491017964,
+    "overall_estimate": 0.9792284866468842,
+    "difficulty_rating_avg": 6.122754491017964,
+    "difficulty_rating_count": 334,
+    "difficulty_level": null,
+    "duration": 1200,
+    "equipment_ids": [],
+    "equipment_tags": [],
+    "explicit_rating": 1,
+    "extra_images": null,
+    "fitness_discipline": "cycling",
+    "fitness_discipline_display_name": "Cycling",
+    "has_closed_captions": true,
+    "has_pedaling_metrics": true,
+    "home_peloton_id": "3f98d67f9f4248a2a061ab5a8204081b",
+    "id": "7371a753bf474f30ac65884204b9f113",
+    "image_url": "https://s3.amazonaws.com/peloton-ride-images/b12ef4cb475013847278d0f80f776fc5c4bb0258/img_1736799290_025ba04671634dd4b1c9b5fc3ac3cfc6.png",
+    "instructor_id": "51702da3a4684b988d31d89eebb43175",
+    "individual_instructor_ids": [],
+    "is_archived": true,
+    "is_closed_caption_shown": true,
+    "is_explicit": true,
+    "has_free_mode": false,
+    "is_live_in_studio_only": false,
+    "language": "english",
+    "origin_locale": "en-US",
+    "length": 1407,
+    "live_stream_id": "7371a753bf474f30ac65884204b9f113-live",
+    "live_stream_url": null,
+    "location": "psny-studio-1",
+    "metrics": [
+      "heart_rate",
+      "cadence",
+      "calories"
+    ],
+    "muscle_group_score": [],
+    "original_air_time": 1736789160,
+    "overall_rating_avg": 0.9792284866468842,
+    "overall_rating_count": 337,
+    "pedaling_start_offset": 60,
+    "pedaling_end_offset": 1260,
+    "pedaling_duration": 1200,
+    "rating": 0,
+    "ride_type_id": "59a49f882ea9475faa3110d50a8fb3f3",
+    "ride_type_ids": [
+      "59a49f882ea9475faa3110d50a8fb3f3"
+    ],
+    "sample_vod_stream_url": null,
+    "sample_preview_stream_url": null,
+    "scheduled_start_time": 1736789400,
+    "series_id": "e12c0504eb4e48bfa4b51702914f59aa",
+    "sold_out": false,
+    "studio_peloton_id": "4cc6a7f7d9714fddbc51fe0e7e32fd84",
+    "title": "20 min Low Impact Ride",
+    "total_ratings": 2070,
+    "total_in_progress_workouts": 32,
+    "total_workouts": 1000,
+    "vod_stream_url": "https://amd-vod.akamaized.net/classes/cycling/01-2025/7371a753bf474f30ac65884204b9f113/1/master.m3u8",
+    "vod_stream_id": "7371a753bf474f30ac65884204b9f113-vod",
+    "captions": [
+      "en-US"
+    ],
+    "user_caption_locales": [
+      {
+        "locale": "en-US",
+        "slugs": [
+          {
+            "type": "en",
+            "display_names": {
+              "en-US": "English",
+              "de-DE": "Englisch",
+              "es-ES": "Inglés",
+              "fr-FR": "Anglais"
+            }
+          }
+        ]
+      }
+    ],
+    "join_tokens": {
+      "on_demand": "eyJob21lX3BlbG90b25faWQiOiBudWxsLCAicmlkZV9pZCI6ICI3MzcxYTc1M2JmNDc0ZjMwYWM2NTg4NDIwNGI5ZjExMyIsICJzdHVkaW9fcGVsb3Rvbl9pZCI6IG51bGwsICJ0eXBlIjogIm9uX2RlbWFuZCJ9"
+    },
+    "flags": [],
+    "is_dynamic_video_eligible": false,
+    "is_fixed_distance": false,
+    "dynamic_video_recorded_speed_in_mph": 0,
+    "thumbnail_title": null,
+    "thumbnail_location": null,
+    "distance": null,
+    "distance_unit": null,
+    "distance_display_value": null,
+    "is_outdoor": false,
+    "is_sessions_eligible": false,
+    "total_user_workouts": 0,
+    "total_following_workouts": 0,
+    "is_favorite": false,
+    "has_tread_pace_target": false
+  },
+  {
+    "content_availability": "available",
+    "content_availability_level": "digital_and_above",
+    "free_for_limited_time": false,
+    "is_limited_ride": false,
+    "availability": {
+      "is_available": true,
+      "reason": null
+    },
+    "class_type_ids": [
+      "7579b9edbdf9464fa19eb58193897a73"
+    ],
+    "content_provider": "peloton",
+    "content_format": "video",
+    "description": "Bursts of effort followed by recovery, this ride will challenge your mind and strengthen your body inside and out.",
+    "difficulty_estimate": 7.269430051813472,
+    "overall_estimate": 0.9897435897435898,
+    "difficulty_rating_avg": 7.269430051813472,
+    "difficulty_rating_count": 193,
+    "difficulty_level": null,
+    "duration": 1200,
+    "equipment_ids": [],
+    "equipment_tags": [],
+    "explicit_rating": 1,
+    "extra_images": null,
+    "fitness_discipline": "cycling",
+    "fitness_discipline_display_name": "Cycling",
+    "has_closed_captions": true,
+    "has_pedaling_metrics": true,
+    "home_peloton_id": "4458f96cd6034dcb9d6905d2baabb275",
+    "id": "43361f32799c4e71a258adb0349ad7e0",
+    "image_url": "https://s3.amazonaws.com/peloton-ride-images/8c0a345403bb66090ef2e517adbf43c1135a857f/img_1736798910_c4e81c693f7745f49134eb3c35f5860c.png",
+    "instructor_id": "51702da3a4684b988d31d89eebb43175",
+    "individual_instructor_ids": [],
+    "is_archived": true,
+    "is_closed_caption_shown": true,
+    "is_explicit": true,
+    "has_free_mode": false,
+    "is_live_in_studio_only": false,
+    "language": "english",
+    "origin_locale": "en-US",
+    "length": 1398,
+    "live_stream_id": "43361f32799c4e71a258adb0349ad7e0-live",
+    "live_stream_url": null,
+    "location": "psny-studio-1",
+    "metrics": [
+      "heart_rate",
+      "cadence",
+      "calories"
+    ],
+    "muscle_group_score": [],
+    "original_air_time": 1736787120,
+    "overall_rating_avg": 0.9897435897435898,
+    "overall_rating_count": 195,
+    "pedaling_start_offset": 60,
+    "pedaling_end_offset": 1260,
+    "pedaling_duration": 1200,
+    "rating": 0,
+    "ride_type_id": "7579b9edbdf9464fa19eb58193897a73",
+    "ride_type_ids": [
+      "7579b9edbdf9464fa19eb58193897a73"
+    ],
+    "sample_vod_stream_url": null,
+    "sample_preview_stream_url": null,
+    "scheduled_start_time": 1736787600,
+    "series_id": "dd662b17cd984a1f9d18a044be9f96f6",
+    "sold_out": false,
+    "studio_peloton_id": "6c4fc01102064e7795941d582f0b4bec",
+    "title": "20 min Intervals Ride",
+    "total_ratings": 1215,
+    "total_in_progress_workouts": 13,
+    "total_workouts": 1000,
+    "vod_stream_url": "https://amd-vod.akamaized.net/classes/cycling/01-2025/43361f32799c4e71a258adb0349ad7e0/1/master.m3u8",
+    "vod_stream_id": "43361f32799c4e71a258adb0349ad7e0-vod",
+    "captions": [
+      "en-US"
+    ],
+    "user_caption_locales": [
+      {
+        "locale": "en-US",
+        "slugs": [
+          {
+            "type": "en",
+            "display_names": {
+              "en-US": "English",
+              "de-DE": "Englisch",
+              "es-ES": "Inglés",
+              "fr-FR": "Anglais"
+            }
+          }
+        ]
+      }
+    ],
+    "join_tokens": {
+      "on_demand": "eyJob21lX3BlbG90b25faWQiOiBudWxsLCAicmlkZV9pZCI6ICI0MzM2MWYzMjc5OWM0ZTcxYTI1OGFkYjAzNDlhZDdlMCIsICJzdHVkaW9fcGVsb3Rvbl9pZCI6IG51bGwsICJ0eXBlIjogIm9uX2RlbWFuZCJ9"
+    },
+    "flags": [],
+    "is_dynamic_video_eligible": false,
+    "is_fixed_distance": false,
+    "dynamic_video_recorded_speed_in_mph": 0,
+    "thumbnail_title": null,
+    "thumbnail_location": null,
+    "distance": null,
+    "distance_unit": null,
+    "distance_display_value": null,
+    "is_outdoor": false,
+    "is_sessions_eligible": false,
+    "total_user_workouts": 0,
+    "total_following_workouts": 0,
+    "is_favorite": false,
+    "has_tread_pace_target": false
+  }
+]

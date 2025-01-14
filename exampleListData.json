@@ -1,0 +1,106 @@
+{
+	"data": [
+		{
+			"content_availability": "available",
+			"content_availability_level": "digital_and_above",
+			"free_for_limited_time": false,
+			"is_limited_ride": false,
+			"availability": {
+				"is_available": true,
+				"reason": null
+			},
+			"class_type_ids": ["57dbf6f9a4904a9f80e302380855bdb7"],
+			"content_provider": "peloton",
+			"content_format": "video",
+			"description": "The key to progress is preparation. Take a few minutes to wake up your muscles and elevate your heart rate before tackling your ride.",
+			"difficulty_estimate": 4.7894736842105265,
+			"overall_estimate": 0.9130434782608695,
+			"difficulty_rating_avg": 4.7894736842105265,
+			"difficulty_rating_count": 19,
+			"difficulty_level": null,
+			"duration": 300,
+			"equipment_ids": [],
+			"equipment_tags": [],
+			"explicit_rating": 1,
+			"extra_images": null,
+			"fitness_discipline": "cycling",
+			"fitness_discipline_display_name": "Cycling",
+			"has_closed_captions": true,
+			"has_pedaling_metrics": true,
+			"home_peloton_id": "00773651b2784d84a91262fb48987a34",
+			"id": "15cb779304024a4791f56e4152decb45",
+			"image_url": "https://s3.amazonaws.com/peloton-ride-images/84d387bb471b095e1822a049dd0e5aab82ba232b/img_1730843711_528c61fe8e9e4c1199d694c33ac840a4.png",
+			"instructor_id": "05735e106f0747d2a112d32678be8afd",
+			"individual_instructor_ids": [],
+			"is_archived": true,
+			"is_closed_caption_shown": true,
+			"is_explicit": true,
+			"has_free_mode": false,
+			"is_live_in_studio_only": true,
+			"language": "english",
+			"origin_locale": "en-US",
+			"length": 323,
+			"live_stream_id": "15cb779304024a4791f56e4152decb45-live",
+			"live_stream_url": null,
+			"location": "psny-studio-1",
+			"metrics": ["heart_rate", "cadence", "calories"],
+			"muscle_group_score": [],
+			"original_air_time": 1736830800,
+			"overall_rating_avg": 0.9130434782608695,
+			"overall_rating_count": 23,
+			"pedaling_start_offset": 1,
+			"pedaling_end_offset": 301,
+			"pedaling_duration": 300,
+			"rating": 0,
+			"ride_type_id": "57dbf6f9a4904a9f80e302380855bdb7",
+			"ride_type_ids": ["57dbf6f9a4904a9f80e302380855bdb7"],
+			"sample_vod_stream_url": null,
+			"sample_preview_stream_url": null,
+			"scheduled_start_time": 1736830800,
+			"series_id": "81731af7a4864f9fb2490068a229e734",
+			"sold_out": false,
+			"studio_peloton_id": "3cce2a88ea384fe1a80332346f2cf888",
+			"title": "5 min Warm Up Ride",
+			"total_ratings": 119,
+			"total_in_progress_workouts": 7,
+			"total_workouts": 100,
+			"vod_stream_url": "https://amd-vod.akamaized.net/classes/cycling/11-2024/15cb779304024a4791f56e4152decb45/1/master.m3u8",
+			"vod_stream_id": "15cb779304024a4791f56e4152decb45-vod",
+			"captions": ["en-US"],
+			"user_caption_locales": [
+				{
+					"locale": "en-US",
+					"slugs": [
+						{
+							"type": "en",
+							"display_names": {
+								"en-US": "English",
+								"de-DE": "Englisch",
+								"es-ES": "Inglés",
+								"fr-FR": "Anglais"
+							}
+						}
+					]
+				}
+			],
+			"join_tokens": {
+				"on_demand": "eyJob21lX3BlbG90b25faWQiOiBudWxsLCAicmlkZV9pZCI6ICIxNWNiNzc5MzA0MDI0YTQ3OTFmNTZlNDE1MmRlY2I0NSIsICJzdHVkaW9fcGVsb3Rvbl9pZCI6IG51bGwsICJ0eXBlIjogIm9uX2RlbWFuZCJ9"
+			},
+			"flags": [],
+			"is_dynamic_video_eligible": false,
+			"is_fixed_distance": false,
+			"dynamic_video_recorded_speed_in_mph": 0.0,
+			"thumbnail_title": null,
+			"thumbnail_location": null,
+			"distance": null,
+			"distance_unit": null,
+			"distance_display_value": null,
+			"is_outdoor": false,
+			"is_sessions_eligible": false,
+			"total_user_workouts": 0,
+			"total_following_workouts": 0,
+			"is_favorite": false,
+			"has_tread_pace_target": false
+		}
+    ]
+}

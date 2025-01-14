@@ -1,0 +1,537 @@
+{
+	"ride": {
+		"id": "266bbc93a1bb4e32a762181be49ade85",
+		"flags": [],
+		"title": "30 min 80s Ride",
+		"length": 1991,
+		"rating": 0,
+		"metrics": ["heart_rate", "cadence", "calories"],
+		"captions": ["en-US"],
+		"distance": null,
+		"duration": 1800,
+		"language": "english",
+		"location": "psl-studio-1",
+		"sold_out": false,
+		"image_url": "https://s3.amazonaws.com/peloton-ride-images/eefa20f9b63f0c57ccd7a047d46f044617278eec/img_1734876290_8fedf205e0f94ec38f1b81e665284fde.png",
+		"series_id": "e99f2ffa9b784f0ab0534a8bc0fcc0b6",
+		"instructor": {
+			"id": "c0a9505d8135412d824cf3c97406179b",
+			"bio": "Leanne is a former professional dancer turned fitness enthusiast who is passionate about movement and self-expression. Leanne has danced since the age of 3, and has worked her way on stage with some of the best-known artists in the world like Taylor Swift, Kylie Minogue and Katy Perry. Leanne’s style of teaching motivates you to step up, and step outside of your comfort zone. She believes that growth comes from areas of discomfort, and through her guidance and support, she’ll get you to the finish line with a smile on your face. Leanne is based in the UK and teaches live from our London studio.",
+			"name": "Leanne Hainsby-Alldis",
+			"quote": "Sweat, smile, repeat! ",
+			"user_id": "913618e33a3f4d7ea69983b9c4524677",
+			"username": "danceonbike_uk",
+			"film_link": "",
+			"image_url": "https://s3.amazonaws.com/workout-metric-images-prod/93f59d0c1400427cbbdd7045751dc2a8",
+			"is_active": true,
+			"last_name": "Hainsby-Alldis",
+			"music_bio": "",
+			"short_bio": "Sweat, smile, repeat! ",
+			"background": "I have been dancing since a very young age, so expressing myself unapologetically through music and movement is second nature. I can’t wait to channel this energy and connect with you in this way on the Bike.",
+			"coach_type": "peloton_coach",
+			"first_name": "Leanne",
+			"is_visible": true,
+			"list_order": 53,
+			"is_announced": true,
+			"is_filterable": true,
+			"jumbotron_url": null,
+			"strava_profile": "",
+			"about_image_url": "https://s3.amazonaws.com/workout-metric-images-prod/26dccd2610be4bd28f529b64d84de341",
+			"twitter_profile": "",
+			"featured_profile": true,
+			"ordered_q_and_as": [
+				[
+					"How Do You Motivate?",
+					"I believe that music is what drives us, so I plan to curate meaningful playlists that will push and uplift you. I want you to feel supported but pushed so you get the most out of your time with me."
+				],
+				[
+					"Outside of Peloton",
+					"I love seeing new parts of the world, attending music festivals and rounding out my training through yoga and boxing. I’m always looking for a good piece of pizza or a green juice. Life’s all about balance!"
+				],
+				["", ""]
+			],
+			"default_cue_delay": 5,
+			"facebook_fan_page": "",
+			"instagram_profile": "",
+			"jumbotron_url_ios": "https://s3.amazonaws.com/workout-metric-images-prod/e4463bde2ad04e14b25497046359f8b2",
+			"default_cross_fade": 5,
+			"jumbotron_url_dark": "https://s3.amazonaws.com/workout-metric-images-prod/ab975ef0b69d4aeebd53c935dbbcb1e2",
+			"fitness_disciplines": ["cycling"],
+			"is_instructor_group": false,
+			"life_style_image_url": "https://s3.amazonaws.com/workout-metric-images-prod/dd6e6cd9f29e42499d375d967b14ddea",
+			"spotify_playlist_uri": "spotify:playlist:3PZvLlv0e1jW9h2rkqVxv9",
+			"workout_share_images": [
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "bike_bootcamp"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "caesar"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "caesar_bootcamp"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "cardio"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "circuit"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "cycling"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "meditation"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "running"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "strength"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "stretching"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "walking"
+				},
+				{
+					"image_url": "https://strava-default-images.s3-us-west-2.amazonaws.com/workout_share_image/default.png",
+					"fitness_discipline": "yoga"
+				}
+			],
+			"individual_instructor_ids": [],
+			"instructor_hero_image_url": "https://s3.amazonaws.com/workout-metric-images-prod/22168b69a8f2481a89b4b2d0b59d4c94",
+			"web_instructor_list_gif_image_url": null,
+			"ios_instructor_list_display_image_url": "https://s3.amazonaws.com/workout-metric-images-prod/6fa7333e5a7f470a99713150c7124e45",
+			"web_instructor_list_display_image_url": "https://s3.amazonaws.com/workout-metric-images-prod/2378710457e54db8b9af9ce5a373c27d",
+			"bike_instructor_list_display_image_url": null
+		},
+		"is_outdoor": false,
+		"description": "Take a ride through the classic tracks of the 80s while you sweat it out on the Bike.",
+		"is_archived": true,
+		"is_explicit": false,
+		"is_favorite": false,
+		"join_tokens": {
+			"on_demand": "eyJob21lX3BlbG90b25faWQiOiBudWxsLCAicmlkZV9pZCI6ICIyNjZiYmM5M2ExYmI0ZTMyYTc2MjE4MWJlNDlhZGU4NSIsICJzdHVkaW9fcGVsb3Rvbl9pZCI6IG51bGwsICJ0eXBlIjogIm9uX2RlbWFuZCJ9"
+		},
+		"availability": {
+			"reason": null,
+			"is_available": true
+		},
+		"extra_images": [],
+		"ride_type_id": "c87e20095d80463db5ce04df7fe2b989",
+		"distance_unit": null,
+		"equipment_ids": [],
+		"has_free_mode": false,
+		"instructor_id": "c0a9505d8135412d824cf3c97406179b",
+		"origin_locale": "en-US",
+		"ride_type_ids": ["c87e20095d80463db5ce04df7fe2b989"],
+		"total_ratings": 41735,
+		"vod_stream_id": "266bbc93a1bb4e32a762181be49ade85-vod",
+		"class_type_ids": ["c87e20095d80463db5ce04df7fe2b989"],
+		"content_format": "video",
+		"equipment_tags": [],
+		"live_stream_id": "266bbc93a1bb4e32a762181be49ade85-live",
+		"total_workouts": 50000,
+		"vod_stream_url": "https://amd-vod.akamaized.net/classes/cycling/12-2024/266bbc93a1bb4e32a762181be49ade85/1/master.m3u8",
+		"explicit_rating": 0,
+		"home_peloton_id": "92b8eacbb29c43bcb8eb72beda6e5daf",
+		"is_limited_ride": false,
+		"live_stream_url": null,
+		"thumbnail_title": null,
+		"content_provider": "peloton",
+		"difficulty_level": null,
+		"overall_estimate": 0.9982876712328768,
+		"is_fixed_distance": false,
+		"original_air_time": 1734868440,
+		"pedaling_duration": 1800,
+		"studio_peloton_id": "8e2acac8e4d744efbb947136977fb128",
+		"fitness_discipline": "cycling",
+		"overall_rating_avg": 0.9982876712328768,
+		"thumbnail_location": null,
+		"difficulty_estimate": 7.508313885647608,
+		"has_closed_captions": true,
+		"pedaling_end_offset": 1860,
+		"total_user_workouts": 0,
+		"content_availability": "available",
+		"has_pedaling_metrics": true,
+		"overall_rating_count": 6424,
+		"scheduled_start_time": 1734868800,
+		"difficulty_rating_avg": 7.508313885647608,
+		"free_for_limited_time": false,
+		"has_tread_pace_target": false,
+		"pedaling_start_offset": 60,
+		"sample_vod_stream_url": null,
+		"distance_display_value": null,
+		"is_live_in_studio_only": false,
+		"difficulty_rating_count": 6856,
+		"is_closed_caption_shown": true,
+		"leaderboard_filter_type": null,
+		"membership_tiering_info": {
+			"tier_type": "all_access",
+			"limited_classes_taken": null,
+			"limited_classes_total": null,
+			"limited_classes_reset_date": null
+		},
+		"total_following_workouts": 0,
+		"individual_instructor_ids": [],
+		"is_dynamic_video_eligible": false,
+		"sample_preview_stream_url": null,
+		"content_availability_level": "digital_and_above",
+		"total_in_progress_workouts": 48,
+		"fitness_discipline_display_name": "Cycling",
+		"dynamic_video_recorded_speed_in_mph": 0
+	},
+	"playlist": {
+		"id": "46e03d4ef35547308936562a0ad6de8a",
+		"songs": [
+			{
+				"id": "1ee6110d0c12495ab372da2eda1b99b3",
+				"album": {
+					"id": "c27b63f9ed334346b340cf93fd13d3d2",
+					"name": "Never Too Much",
+					"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/2460ec3d-52af-433b-a5cf-7a3986d370bb/big_A10301A00009140339_T-109337006_Image.jpg"
+				},
+				"index": 0,
+				"liked": false,
+				"title": "Never Too Much",
+				"artists": [
+					{
+						"artist_id": "708d207ccb9f410ab16cfa996f1f3b3a",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/8c3754a5-6a33-46d1-a822-21b061cfdc9f/orig_bf0052d37cdb5289a3f426b5240a5841_T43.jpg",
+						"artist_name": "Luther Vandross",
+						"artist_alias_id": "f45bb005ccd9f19323a3b15db1f87fc3",
+						"num_rides_with_song_played": 357
+					}
+				],
+				"popularity": 75,
+				"cue_time_offset": 60,
+				"explicit_rating": 0,
+				"start_time_offset": 60
+			},
+			{
+				"id": "b082df83ec014adfaac9590fcddbc115",
+				"album": {
+					"id": "24dec01cad3741d0b8af09476fdc7629",
+					"name": "Headlines and Deadlines - The Hits of a-ha",
+					"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/1a3908d2-7295-4613-9092-679b5162962c/product/acf5ba28-ecca-4111-a66b-f2c3a862e43f/big_075992677325.jpg"
+				},
+				"index": 1,
+				"liked": false,
+				"title": "Take on Me",
+				"artists": [
+					{
+						"artist_id": "435deba14dc24e24aed92f1006aef53e",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/1a3908d2-7295-4613-9092-679b5162962c/product/612bdaf5-7b16-4b7d-ac41-833ba8085c64/orig_603497879298.jpg",
+						"artist_name": "A-Ha",
+						"artist_alias_id": "124534a0ae447b0872b3092731a37d8e",
+						"num_rides_with_song_played": 360
+					},
+					{
+						"artist_id": "92536c0d406840aca67bce7022e99c6a",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/0e223911-68d5-4a5c-b450-ab27f82df9c6/orig_98da12b76b2dc1d4f4f471dcdc0e37f2_T25.jpg",
+						"artist_name": "a-ha",
+						"artist_alias_id": "124534a0ae447b0872b3092731a37d8e",
+						"num_rides_with_song_played": 182
+					}
+				],
+				"popularity": 0,
+				"cue_time_offset": 284,
+				"explicit_rating": 0,
+				"start_time_offset": 284
+			},
+			{
+				"id": "88429572b1ea4bf480a7da42c546f17b",
+				"album": {
+					"id": "58297e67933a42b08648f1d812036c79",
+					"name": "ICON",
+					"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/30c482cf-6693-4acd-8619-878f3cfb8862/product/7c680423-eced-4c9c-895a-bfb478879934/big_11UMGIM01527_T1_cvrart.jpg"
+				},
+				"index": 2,
+				"liked": false,
+				"title": "Push It",
+				"artists": [
+					{
+						"artist_id": "8178ab4bfc0d4bf4baa4cfffcde32ad7",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/eb20e7d5-68c6-48eb-8aed-9072d54246db/product/27e0c5cf-8207-408a-99d9-590ebe3d47a4/orig_888003320291.jpg",
+						"artist_name": "Salt-N-Pepa",
+						"artist_alias_id": "8d511b1de1df2b6b33de9bd1844371c7",
+						"num_rides_with_song_played": 623
+					}
+				],
+				"popularity": 0,
+				"cue_time_offset": 497,
+				"explicit_rating": 0,
+				"start_time_offset": 497
+			},
+			{
+				"id": "858e799b6e2149ada6375c68cc360a48",
+				"album": {
+					"id": "93109738cdcc472489a89566cf1959c4",
+					"name": "Heaven On Earth (Deluxe Edition)",
+					"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/30c482cf-6693-4acd-8619-878f3cfb8862/product/2b2f8aba-4390-4b96-9594-2833f6135bf8/big_19UMGIM68854_T1_cvrart.jpg"
+				},
+				"index": 3,
+				"liked": false,
+				"title": "Heaven Is A Place On Earth",
+				"artists": [
+					{
+						"artist_id": "3f698254bb2b4954a108d67be88d2927",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/1a3908d2-7295-4613-9092-679b5162962c/product/26d5cfc8-eab5-49fc-8913-246fc562f707/orig_4050538935660.jpg",
+						"artist_name": "Belinda Carlisle",
+						"artist_alias_id": "568af073a59a0cf8ee178e49947959d2",
+						"num_rides_with_song_played": 195
+					}
+				],
+				"popularity": 0,
+				"cue_time_offset": 753,
+				"explicit_rating": 0,
+				"start_time_offset": 753
+			},
+			{
+				"id": "1bebe1283b484e2dbcd78f28bd0b0b3a",
+				"album": {
+					"id": "4822d90f2547493995b1a155f179aad6",
+					"name": "Bon Jovi Greatest Hits",
+					"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/30c482cf-6693-4acd-8619-878f3cfb8862/product/ac015a77-7ba9-4fa1-a069-45b45fee88a0/big_10UMGIM26223_T1_cvrart.jpg"
+				},
+				"index": 4,
+				"liked": false,
+				"title": "You Give Love A Bad Name",
+				"artists": [
+					{
+						"artist_id": "7fb2a6e65aa94651bb138b596bbf7fc7",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/30c482cf-6693-4acd-8619-878f3cfb8862/product/5ac56d0d-963d-4dc3-b6b0-1c0ad44232f0/orig_24UMGIM27342_T1_cvrart.jpg",
+						"artist_name": "Bon Jovi",
+						"artist_alias_id": "2bf67671cd6d0a0938ef60688c1816c7",
+						"num_rides_with_song_played": 1625
+					}
+				],
+				"popularity": 0,
+				"cue_time_offset": 988,
+				"explicit_rating": 0,
+				"start_time_offset": 988
+			},
+			{
+				"id": "123b155ae8f64b47bf311c6f5c4da278",
+				"album": {
+					"id": "c05df643dbae4b5a906293e03272a43b",
+					"name": "Ultimate",
+					"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/c06460f1-4d24-4015-abb1-56d4eab3bcf8/big_98b3deaf2a30f235ef8d657dd301fdf4_T57.jpg"
+				},
+				"index": 5,
+				"liked": false,
+				"title": "I Would Die 4 U",
+				"artists": [
+					{
+						"artist_id": "b70417f605d34244b247ef0964a55848",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/a7e6a6b6-0e94-4413-9f4d-7eb259c4c4fc/orig_cbc4b8dea870f4baa338a545ce053a0b_T3.jpg",
+						"artist_name": "Prince",
+						"artist_alias_id": "2077e4a6bafa9b4e7b55e1fff16818af",
+						"num_rides_with_song_played": 1156
+					},
+					{
+						"artist_id": "7e03f474c4ca4bac8781005945c38a13",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/1a3908d2-7295-4613-9092-679b5162962c/product/141fc7c7-01ec-4abf-8ab8-ceaf609b7616/orig_075992511025.jpg",
+						"artist_name": "The Revolution",
+						"artist_alias_id": "9fd029456802acdce67c86f8b4559d6e",
+						"num_rides_with_song_played": 263
+					},
+					{
+						"artist_id": "2c424ccfc7b44760ab792e23d3057322",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/4ba09b87-a5f2-40aa-8959-b933ed50fcd5/orig_bfd2d9d646a213b7fa1da6feabfa5ddc_T41.jpg",
+						"artist_name": "Prince and The Revolution",
+						"artist_alias_id": "9e2c62673f3c4cd7484919da6b40d286",
+						"num_rides_with_song_played": 162
+					}
+				],
+				"popularity": 0,
+				"cue_time_offset": 1199,
+				"explicit_rating": 0,
+				"start_time_offset": 1199
+			},
+			{
+				"id": "5f5badc4722041b9983e250932cfdd39",
+				"album": {
+					"id": "33e90b861ac74d09abafe236ed3f13db",
+					"name": "The Final",
+					"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/536f390f-54b6-4e34-a823-a4f2edcd4eec/big_A10301A0002718245K_T-109339781195_Image.jpg"
+				},
+				"index": 6,
+				"liked": false,
+				"title": "I'm Your Man",
+				"artists": [
+					{
+						"artist_id": "862028a8739e410d8b716ecc0775ad50",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/40bdfbde-5b6d-461d-a0c5-5958e72c293e/orig_29eb1f80a757542d1c26e4be3cf6f301_T9.jpg",
+						"artist_name": "Wham!",
+						"artist_alias_id": "924a6e6138d5d19564a9def7f456482c",
+						"num_rides_with_song_played": 150
+					}
+				],
+				"popularity": 0,
+				"cue_time_offset": 1366,
+				"explicit_rating": 0,
+				"start_time_offset": 1366
+			},
+			{
+				"id": "1b41ffe8868b4944a429350e2950b506",
+				"album": {
+					"id": "1807d4220eb64a7ba10c1e01a21f1369",
+					"name": "Alternative Christmas Hits",
+					"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/4f6b5054-0c68-4534-8513-b64a33d5fcf0/big_f31ba24781647a3cf0ec6636f82e104f_T121.jpg"
+				},
+				"index": 7,
+				"liked": false,
+				"title": "Merry Christmas Everyone",
+				"artists": [
+					{
+						"artist_id": "ffcaea3937cb47149f0d8a266035284d",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/b064458d-697d-4c29-9ffa-1f6d3f315ab8/orig_bd5804f5feef0cc0bca36f23374da5c9_T3.jpg",
+						"artist_name": "Shakin' Stevens",
+						"artist_alias_id": "4ddd2eb7d5045718b5ecd30b9332f34c",
+						"num_rides_with_song_played": 14
+					}
+				],
+				"popularity": 0,
+				"cue_time_offset": 1597,
+				"explicit_rating": 0,
+				"start_time_offset": 1597
+			},
+			{
+				"id": "16cc4195be77455282ec634142beeeeb",
+				"album": {
+					"id": "f4b35e2ab8d94573b7d5408aad3c2a84",
+					"name": "Contact (Expanded Edition)",
+					"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/f4dfc2b7-2988-41fc-a01c-a488c4cabafa/big_A10301A00036908271_T-1093310058587_Image.jpg"
+				},
+				"index": 8,
+				"liked": false,
+				"title": "Dare Me",
+				"artists": [
+					{
+						"artist_id": "dcc0defd6b9447ecaccd77f7d7f8be0b",
+						"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/30c482cf-6693-4acd-8619-878f3cfb8862/product/18588ed3-d295-408c-bbbc-f77dd35722a7/orig_23UMGIM85280_T1_cvrart.jpg",
+						"artist_name": "The Pointer Sisters",
+						"artist_alias_id": "1f1fbd8b4174db4a7f812981e1fef03a",
+						"num_rides_with_song_played": 488
+					}
+				],
+				"popularity": 0,
+				"cue_time_offset": 1805,
+				"explicit_rating": 0,
+				"start_time_offset": 1805
+			}
+		],
+		"ride_id": "266bbc93a1bb4e32a762181be49ade85",
+		"stream_id": "b2bbb74e74be4f7c88e46c525114bb80",
+		"stream_url": null,
+		"top_albums": [
+			{
+				"id": "4822d90f2547493995b1a155f179aad6",
+				"name": "Bon Jovi Greatest Hits",
+				"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/30c482cf-6693-4acd-8619-878f3cfb8862/product/ac015a77-7ba9-4fa1-a069-45b45fee88a0/big_10UMGIM26223_T1_cvrart.jpg"
+			},
+			{
+				"id": "c05df643dbae4b5a906293e03272a43b",
+				"name": "Ultimate",
+				"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/c06460f1-4d24-4015-abb1-56d4eab3bcf8/big_98b3deaf2a30f235ef8d657dd301fdf4_T57.jpg"
+			},
+			{
+				"id": "58297e67933a42b08648f1d812036c79",
+				"name": "ICON",
+				"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/30c482cf-6693-4acd-8619-878f3cfb8862/product/7c680423-eced-4c9c-895a-bfb478879934/big_11UMGIM01527_T1_cvrart.jpg"
+			},
+			{
+				"id": "f4b35e2ab8d94573b7d5408aad3c2a84",
+				"name": "Contact (Expanded Edition)",
+				"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/f4dfc2b7-2988-41fc-a01c-a488c4cabafa/big_A10301A00036908271_T-1093310058587_Image.jpg"
+			}
+		],
+		"top_artists": [
+			{
+				"artist_id": "7fb2a6e65aa94651bb138b596bbf7fc7",
+				"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/30c482cf-6693-4acd-8619-878f3cfb8862/product/5ac56d0d-963d-4dc3-b6b0-1c0ad44232f0/orig_24UMGIM27342_T1_cvrart.jpg",
+				"artist_name": "Bon Jovi",
+				"artist_alias_id": "2bf67671cd6d0a0938ef60688c1816c7",
+				"num_rides_with_song_played": 1625
+			},
+			{
+				"artist_id": "b70417f605d34244b247ef0964a55848",
+				"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/e6691a61-68f0-428c-873e-bf667dcd863b/product/a7e6a6b6-0e94-4413-9f4d-7eb259c4c4fc/orig_cbc4b8dea870f4baa338a545ce053a0b_T3.jpg",
+				"artist_name": "Prince",
+				"artist_alias_id": "2077e4a6bafa9b4e7b55e1fff16818af",
+				"num_rides_with_song_played": 1156
+			},
+			{
+				"artist_id": "8178ab4bfc0d4bf4baa4cfffcde32ad7",
+				"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/eb20e7d5-68c6-48eb-8aed-9072d54246db/product/27e0c5cf-8207-408a-99d9-590ebe3d47a4/orig_888003320291.jpg",
+				"artist_name": "Salt-N-Pepa",
+				"artist_alias_id": "8d511b1de1df2b6b33de9bd1844371c7",
+				"num_rides_with_song_played": 623
+			},
+			{
+				"artist_id": "dcc0defd6b9447ecaccd77f7d7f8be0b",
+				"image_url": "https://images.music.onepeloton.com/rr/albumimages/catalog/30c482cf-6693-4acd-8619-878f3cfb8862/product/18588ed3-d295-408c-bbbc-f77dd35722a7/orig_23UMGIM85280_T1_cvrart.jpg",
+				"artist_name": "The Pointer Sisters",
+				"artist_alias_id": "1f1fbd8b4174db4a7f812981e1fef03a",
+				"num_rides_with_song_played": 488
+			}
+		],
+		"is_playlist_shown": true,
+		"is_top_artists_shown": true,
+		"is_in_class_music_shown": true
+	},
+	"class_types": [
+		{
+			"id": "c87e20095d80463db5ce04df7fe2b989",
+			"name": "Music (Cycling)"
+		}
+	],
+	"is_ftp_test": false,
+	"lanebreak_info": null,
+	"sampled_top_tags": null,
+	"last_time_metrics": null,
+	"excluded_platforms": [],
+	"is_power_zone_class": false,
+	"default_album_images": {
+		"default_in_class_image_url": "https://s3.amazonaws.com/peloton-ride-images/DEFAULT_ALBUM_ART_IN_CLASS.svg",
+		"default_class_detail_image_url": "https://s3.amazonaws.com/peloton-ride-images/DEFAULT_ALBUM_ART_CLASS_DETAIL.svg"
+	},
+	"target_class_metrics": {
+		"target_graph_metrics": [
+			{
+				"max": 120,
+				"min": 60,
+				"type": "cadence",
+				"average": 81,
+			},
+			{
+				"max": 60,
+				"min": 20,
+				"type": "resistance",
+				"average": 40,
+			}
+		],
+		"total_expected_output": {
+			"expected_lower_output": 131,
+			"expected_upper_output": 331
+		}
+	},
+	"disabled_leaderboard_filters": {
+		"just_me": false,
+		"following": false,
+		"age_and_gender": false
+	}
+}
