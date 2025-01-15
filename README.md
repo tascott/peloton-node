@@ -296,45 +296,33 @@ Response Structure:
 - Primary storage in PostgreSQL
 
 ### Database Backups
-To backup both databases (creates SQL dumps in the `backups` directory):
+To backup both databases (creates compressed SQL dumps in the `backups` directory):
 ```bash
 node backup_dbs.js
 ```
 
 This will:
-- Create timestamped backups of both databases
-- Store them in `./backups/` directory
-- Use format: `peloton_workouts_TIMESTAMP.sql` and `peloton_detailed_TIMESTAMP.sql`
+- Create compressed timestamped backups of both databases
+- Store them locally in `./backups/` directory (not version controlled)
+- Include ALL data (including complete JSONB API responses)
+- Use gzip compression for efficient storage
 
 To list available backups and get restore commands:
 ```bash
 node list_backups.js
 ```
 This will show:
-- All available backups grouped by timestamp
+- All available local backups grouped by timestamp
 - File sizes
-- Ready-to-use restore commands
+- Ready-to-use restore commands for each backup
 
-Example output:
-```
-📂 Available Database Backups:
+Note: The backups include the full API response data in the `full_details` JSONB column. This ensures you can:
+- Extract new data points in future iterations
+- Preserve historical workout data that might be removed from Peloton
+- Maintain a record of the exact API response format
+- Recover all data even if the Peloton API changes
 
-1. 📅 1/15/2024, 12:30:00 PM
-   - peloton_workouts: peloton_workouts_2024-01-15T12-30-00-000Z.sql (2.5 MB)
-   - peloton_detailed: peloton_detailed_2024-01-15T12-30-00-000Z.sql (15.7 MB)
-
-   Restore commands:
-   psql -U $DB_USER -d peloton_workouts < ./backups/peloton_workouts_2024-01-15T12-30-00-000Z.sql
-   psql -U $DB_USER -d peloton_detailed < ./backups/peloton_detailed_2024-01-15T12-30-00-000Z.sql
-```
-
-To restore from backup, use the commands shown by `list_backups.js` or manually:
-```bash
-# Replace DB_USER with your database user
-# Replace TIMESTAMP with the timestamp from list_backups.js
-psql -U $DB_USER -d peloton_workouts < ./backups/peloton_workouts_TIMESTAMP.sql
-psql -U $DB_USER -d peloton_detailed < ./backups/peloton_detailed_TIMESTAMP.sql
-```
+Make sure to add `backups/` to your `.gitignore` to prevent committing backup files to version control.
 
 ## Dependencies
 

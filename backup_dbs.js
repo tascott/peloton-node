@@ -14,14 +14,19 @@ const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 
 // Database configurations
 const databases = [
-    { name: 'peloton_workouts', file: `peloton_workouts_${timestamp}.sql` },
-    { name: 'peloton_detailed', file: `peloton_detailed_${timestamp}.sql` }
+    { name: 'peloton_workouts', file: `peloton_workouts_${timestamp}.sql.gz` },
+    { name: 'peloton_detailed', file: `peloton_detailed_${timestamp}.sql.gz` }
 ];
 
 // Create backup function
 function backupDatabase(dbName, backupFile) {
     const backupPath = path.join(BACKUP_DIR, backupFile);
-    const command = `PGPASSWORD=${process.env.DB_PASSWORD} pg_dump -h ${process.env.DB_HOST} -U ${process.env.DB_USER} -p ${process.env.DB_PORT} -F p -b -v -f ${backupPath} ${dbName}`;
+    // Using gzip compression but keeping all data
+    const command = `PGPASSWORD=${process.env.DB_PASSWORD} pg_dump -h ${process.env.DB_HOST} \
+-U ${process.env.DB_USER} -p ${process.env.DB_PORT} \
+-d ${dbName} \
+--no-owner --no-acl \
+| gzip > ${backupPath}`;
 
     return new Promise((resolve, reject) => {
         console.log(`📦 Starting backup of ${dbName}...`);
@@ -31,7 +36,8 @@ function backupDatabase(dbName, backupFile) {
                 reject(error);
                 return;
             }
-            console.log(`✅ Successfully backed up ${dbName} to ${backupFile}`);
+            const size = (fs.statSync(backupPath).size / 1024 / 1024).toFixed(2);
+            console.log(`✅ Successfully backed up ${dbName} to ${backupFile} (${size} MB)`);
             resolve();
         });
     });

@@ -11,7 +11,7 @@ if (!fs.existsSync(BACKUP_DIR)) {
 
 // Get all backup files
 const files = fs.readdirSync(BACKUP_DIR)
-    .filter(file => file.endsWith('.sql'))
+    .filter(file => file.endsWith('.sql.gz'))
     .sort()
     .reverse(); // Most recent first
 
@@ -24,7 +24,7 @@ if (files.length === 0) {
 const backupGroups = {};
 files.forEach(file => {
     // Extract timestamp from filename
-    const match = file.match(/(.*?)_(\d{4}-\d{2}-\d{2}T.*?)\.sql$/);
+    const match = file.match(/(.*?)_(\d{4}-\d{2}-\d{2}T.*?)\.sql\.gz$/);
     if (match) {
         const [_, dbName, timestamp] = match;
         if (!backupGroups[timestamp]) {
@@ -61,7 +61,7 @@ Object.entries(backupGroups).forEach(([timestamp, files], index) => {
     // Show restore commands
     console.log('\n   Restore commands:');
     files.forEach(({dbName, file}) => {
-        console.log(`   psql -U $DB_USER -d ${dbName} < ./backups/${file}`);
+        console.log(`   gunzip -c ./backups/${file} | psql -U $DB_USER -d ${dbName}`);
     });
     console.log(''); // Empty line between groups
 });
