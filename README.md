@@ -19,7 +19,6 @@ A Node.js application that extracts and stores music playlists from Peloton work
 ├── db_detailed.js          # Detailed workout database operations
 ├── fetchWorkoutDetails.js  # Core API fetching logic
 ├── fetchDetailedWorkouts.js# Main processing and detailed DB population
-├── index.js               # Application entry point
 ├── saveWorkouts.js        # Initial workout saving logic
 └── session.json           # Stores authentication session
 ```
@@ -212,29 +211,18 @@ This will:
 ## Usage
 
 ```bash
-# Fetch initial workout list (50 workouts per page)
-node index.js                  # Fetches first 200 workouts
-node index.js --total 500     # Fetch specific number of workouts
-node index.js --all           # Fetch all available workouts
-
-# Save workouts to initial database with duplicate checking
+# Fetch and save new workouts
 node saveWorkouts.js          # Fetches and saves new workouts to peloton_workouts
                              # Automatically stops when reaching already saved workouts
 
 # Process detailed workout information
 node fetchDetailedWorkouts.js                    # Process all unprocessed workouts one by one
-node fetchDetailedWorkouts.js --batch-size 10    # Process in batches of 10
-node fetchDetailedWorkouts.js --concurrent 5     # Process 5 workouts concurrently
 node fetchDetailedWorkouts.js --force            # Reprocess all workouts, even if already processed
-
-# Resume operations
-node saveWorkouts.js --resume         # Resume initial workout collection
-node fetchDetailedWorkouts.js --resume # Resume detailed processing
 ```
 
 ### Rate Limiting & Batch Processing
 
-#### Initial Collection (`index.js`, `saveWorkouts.js`)
+#### Initial Collection (`saveWorkouts.js`)
 - Fetches workouts in pages of 50 (API limit)
 - 2-second delay between page requests
 - Checks for duplicates before saving
@@ -306,6 +294,24 @@ Response Structure:
 
 ### Database
 - Primary storage in PostgreSQL
+
+### Database Backups
+To backup both databases (creates SQL dumps in the `backups` directory):
+```bash
+node backup_dbs.js
+```
+
+This will:
+- Create timestamped backups of both databases
+- Store them in `./backups/` directory
+- Use format: `peloton_workouts_TIMESTAMP.sql` and `peloton_detailed_TIMESTAMP.sql`
+
+To restore from backup:
+```bash
+# Replace TIMESTAMP with the actual timestamp from your backup file
+psql -U your_db_user -d peloton_workouts < ./backups/peloton_workouts_TIMESTAMP.sql
+psql -U your_db_user -d peloton_detailed < ./backups/peloton_detailed_TIMESTAMP.sql
+```
 
 ## Dependencies
 
