@@ -6,11 +6,11 @@ function getSessionId() {
     try {
         const sessionData = JSON.parse(fs.readFileSync('./session.json','utf8'));
 
-        if(!sessionData.peloton_session_id) {
+        if(!sessionData.session_id) {
             throw new Error("No session ID found in session.json!");
         }
 
-        return sessionData.peloton_session_id;
+        return sessionData.session_id;
     } catch(err) {
         console.error("Error reading session.json:",err.message);
         process.exit(1);

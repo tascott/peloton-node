@@ -11,7 +11,7 @@ async function authenticatePeloton() {
         if(fs.existsSync(SESSION_FILE)) {
             const savedSession = JSON.parse(fs.readFileSync(SESSION_FILE,'utf8'));
             if(savedSession.session_id) {
-                console.log("Using saved Peloton session ID:",savedSession.session_id);
+                console.log("Using saved Peloton session ID:", savedSession.session_id);
                 return savedSession.session_id;
             }
         }
@@ -26,7 +26,7 @@ async function authenticatePeloton() {
 
         console.log("New session ID:",sessionId);
 
-        fs.writeFileSync(SESSION_FILE,JSON.stringify({session_id: sessionId},null,2));
+        fs.writeFileSync(SESSION_FILE, JSON.stringify({session_id: sessionId}, null, 2));
         console.log("Session saved.");
 
         return sessionId;

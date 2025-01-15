@@ -10,10 +10,12 @@ async function fetchAndSaveWorkouts() {
     await initDB();  // ✅ Ensure DB is initialized
 
     const SESSION_ID = await authenticatePeloton();
-    console.log("\n📡 Using Session ID:",SESSION_ID);
+    console.log("\n📡 Using Session ID:", SESSION_ID);
 
     let page = 0;
     let totalFetched = 0;
+    let totalExisting = 0;
+    let totalPages = 0;
 
     while(true) {
         const url = `${BASE_URL}&limit=50&page=${page}`;
@@ -30,7 +32,7 @@ async function fetchAndSaveWorkouts() {
         console.log(`\n🔄 Fetching page ${page}...`);
 
         try {
-            const response = await axios.get(url,{headers});
+            const response = await axios.get(url, {headers});
 
             if(!response.data.data || response.data.data.length === 0) {
                 console.log("✅ No more workouts available. Stopping.");
@@ -38,36 +40,51 @@ async function fetchAndSaveWorkouts() {
             }
 
             const workouts = response.data.data;
+            totalPages++;
+
+            console.log(`📊 Found ${workouts.length} workouts on page ${page}`);
+            console.log(`   First workout: ${workouts[0].title} (${new Date(workouts[0].scheduled_start_time * 1000).toISOString()})`);
+            console.log(`   Last workout: ${workouts[workouts.length-1].title} (${new Date(workouts[workouts.length-1].scheduled_start_time * 1000).toISOString()})`);
+
             let newEntries = 0;
+            let existingOnPage = 0;
 
             for(const workout of workouts) {
                 const exists = await checkIfWorkoutExists(workout.id);
-
                 if(!exists) {
                     newEntries++;
+                } else {
+                    existingOnPage++;
+                    totalExisting++;
                 }
             }
 
             if(newEntries === 0) {
-                console.log(`✅ All workouts on page ${page} are already in DB. Stopping.`);
+                console.log(`✅ All ${existingOnPage} workouts on page ${page} already exist in DB. Stopping.`);
                 break;
             }
 
             totalFetched += newEntries;
-            page++;
+            console.log(`📊 Page ${page}: ${newEntries} new, ${existingOnPage} existing`);
 
             // ✅ Save to PostgreSQL
             await saveWorkoutsToDB(workouts);
             console.log(`💾 Saved ${newEntries} new workouts to DB.`);
-            await new Promise(resolve => setTimeout(resolve,RATE_LIMIT_DELAY));
+
+            page++;
+            await new Promise(resolve => setTimeout(resolve, RATE_LIMIT_DELAY));
 
         } catch(error) {
-            console.error("❌ Fetch error:",error.response ? error.response.data : error.message);
+            console.error("❌ Fetch error:", error.response ? error.response.data : error.message);
             break;
         }
     }
 
-    console.log(`\n✅ Finished fetching ${totalFetched} new workouts.`);
+    console.log(`\n📊 Final Summary:`);
+    console.log(`✅ Pages checked: ${totalPages}`);
+    console.log(`✅ New workouts added: ${totalFetched}`);
+    console.log(`⏭ Existing workouts found: ${totalExisting}`);
+    console.log(`📊 Total workouts seen: ${totalFetched + totalExisting}`);
 }
 
 // ✅ Check if workout exists in DB
