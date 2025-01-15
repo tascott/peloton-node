@@ -1,6 +1,3 @@
 /node_modules
-/workouts_list_old
-/workouts_list
-/workout_details_old
-/workouts_detail
 .env
+backups

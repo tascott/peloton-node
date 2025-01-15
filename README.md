@@ -283,8 +283,8 @@ Response Structure:
 - Default delay: 1000ms between requests
 
 ### Batch Processing
-- Workout list batch size: 50 (API limit)
-- Detail processing batch size: 100
+- Workout list batch size: 50 (API self-imposed limit)
+- Detail processing batch size: 100 (Also a self-imposed limit)
 
 ## Error Handling
 - Authentication errors: Auto-refresh of session tokens
@@ -306,11 +306,34 @@ This will:
 - Store them in `./backups/` directory
 - Use format: `peloton_workouts_TIMESTAMP.sql` and `peloton_detailed_TIMESTAMP.sql`
 
-To restore from backup:
+To list available backups and get restore commands:
 ```bash
-# Replace TIMESTAMP with the actual timestamp from your backup file
-psql -U your_db_user -d peloton_workouts < ./backups/peloton_workouts_TIMESTAMP.sql
-psql -U your_db_user -d peloton_detailed < ./backups/peloton_detailed_TIMESTAMP.sql
+node list_backups.js
+```
+This will show:
+- All available backups grouped by timestamp
+- File sizes
+- Ready-to-use restore commands
+
+Example output:
+```
+📂 Available Database Backups:
+
+1. 📅 1/15/2024, 12:30:00 PM
+   - peloton_workouts: peloton_workouts_2024-01-15T12-30-00-000Z.sql (2.5 MB)
+   - peloton_detailed: peloton_detailed_2024-01-15T12-30-00-000Z.sql (15.7 MB)
+
+   Restore commands:
+   psql -U $DB_USER -d peloton_workouts < ./backups/peloton_workouts_2024-01-15T12-30-00-000Z.sql
+   psql -U $DB_USER -d peloton_detailed < ./backups/peloton_detailed_2024-01-15T12-30-00-000Z.sql
+```
+
+To restore from backup, use the commands shown by `list_backups.js` or manually:
+```bash
+# Replace DB_USER with your database user
+# Replace TIMESTAMP with the timestamp from list_backups.js
+psql -U $DB_USER -d peloton_workouts < ./backups/peloton_workouts_TIMESTAMP.sql
+psql -U $DB_USER -d peloton_detailed < ./backups/peloton_detailed_TIMESTAMP.sql
 ```
 
 ## Dependencies
