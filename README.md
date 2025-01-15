@@ -21,8 +21,7 @@ A Node.js application that extracts and stores music playlists from Peloton work
 ├── fetchDetailedWorkouts.js# Main processing and detailed DB population
 ├── index.js               # Application entry point
 ├── saveWorkouts.js        # Initial workout saving logic
-├── session.json           # Stores authentication session
-└── progress.json          # Tracks processing progress
+└── session.json           # Stores authentication session
 ```
 
 ### Two-Database Architecture
@@ -143,7 +142,7 @@ VALUES ('123', 'Song Title', 'Artist Name');
 
 - Node.js 14+
 - PostgreSQL 12+
-- Peloton account credentials
+- Peloton account credentials (email and password)
 
 ## Installation
 
@@ -165,9 +164,50 @@ DB_USER=your_db_user
 DB_HOST=your_db_host
 DB_PASSWORD=your_db_password
 DB_PORT=your_db_port
-PELOTON_USERNAME=your_peloton_email
-PELOTON_PASSWORD=your_peloton_password
+PELOTON_USERNAME=your_peloton_email    # Required for authentication
+PELOTON_PASSWORD=your_peloton_password # Required for authentication
 ```
+
+## Workflow
+
+The application works in two steps:
+
+### 1. Initial Authentication & Workout List Collection
+First, you need to authenticate with Peloton and fetch the latest workout list:
+```bash
+node saveWorkouts.js
+```
+This will:
+- Authenticate with Peloton using your credentials
+- Create/update `session.json` with your session token
+- Fetch all new workouts from Peloton's API
+- Save basic workout info to the `peloton_workouts` database
+- Stop when it reaches workouts that are already in the database
+
+### 2. Detailed Workout Processing
+After collecting the workout list, fetch detailed information for each workout:
+```bash
+node fetchDetailedWorkouts.js
+```
+This will:
+- Use the session token from `session.json`
+- Check `peloton_workouts` database for unprocessed workouts
+- Fetch detailed information for each new workout
+- Save complete workout data, instructor info, and song playlists to `peloton_detailed` database
+
+### Session Token Management
+- The session token is automatically managed in `session.json`
+- If authentication fails, delete `session.json` and run `saveWorkouts.js` again to get a new token
+- Tokens typically last several days but may expire
+- If you get authentication errors, simply delete `session.json` and run `saveWorkouts.js` again
+
+### Typical Usage Pattern
+1. Run `node saveWorkouts.js` periodically to fetch new workouts
+2. Run `node fetchDetailedWorkouts.js` after to process any new workouts
+3. If either command fails with authentication errors:
+   - Delete `session.json`
+   - Run `node saveWorkouts.js` to get a new session token
+   - Try your original command again
 
 ## Usage
 
