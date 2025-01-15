@@ -78,23 +78,32 @@ async function fetchAndSaveDetailedWorkouts() {
         // Get IDs of already saved detailed workouts
         const existingRes = await clientNew.query('SELECT id FROM detailed_workouts');
         const existingWorkoutIds = new Set(existingRes.rows.map(row => row.id));
+        console.log(`📊 Found ${existingWorkoutIds.size} already processed workouts in detailed database`);
 
         // Get all workouts from first database
         const res = await clientOld.query('SELECT id, title, scheduled_time FROM workouts');
         const workouts = res.rows;
+        console.log(`📊 Found ${workouts.length} total workouts in initial database`);
+        console.log(`📊 Need to process ${workouts.length - existingWorkoutIds.size} workouts\n`);
+
+        let processed = 0;
+        let skipped = 0;
+        let failed = 0;
 
         for(const workout of workouts) {
             try {
                 if(existingWorkoutIds.has(workout.id)) {
-                    console.log(`⏭ Skipping ${workout.id}, already saved.`);
+                    skipped++;
+                    process.stdout.write(`\r⏭ Skipped: ${skipped}, Processed: ${processed}, Failed: ${failed}`);
                     continue;
                 }
 
-                console.log(`🔄 Fetching detailed data for workout ${workout.id}...`);
+                console.log(`\n\n🔄 Fetching detailed data for workout ${workout.id}...`);
                 const details = await fetchWorkoutDetails(workout.id);
 
                 if(!details || !details.ride) {
                     console.log(`❌ Failed to fetch details for ${workout.id}, skipping...`);
+                    failed++;
                     continue;
                 }
 
@@ -180,16 +189,26 @@ async function fetchAndSaveDetailedWorkouts() {
 
                 await clientNew.query('COMMIT');
                 console.log(`✅ Saved detailed data for workout ${workout.id}`);
+                console.log(`📊 Progress - Skipped: ${skipped}, Processed: ${processed}, Failed: ${failed}`);
 
                 // Rate limiting
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
+                processed++;
+
             } catch(err) {
                 await clientNew.query('ROLLBACK');
                 console.error(`❌ Error processing workout ${workout.id}:`, err);
+                failed++;
                 continue;
             }
         }
+
+        console.log(`\n\n📊 Final Summary:`);
+        console.log(`✅ Successfully processed: ${processed}`);
+        console.log(`⏭ Already existed/skipped: ${skipped}`);
+        console.log(`❌ Failed to process: ${failed}`);
+        console.log(`📊 Total workouts checked: ${workouts.length}`);
 
     } catch(err) {
         console.error("❌ Error during migration:", err);
