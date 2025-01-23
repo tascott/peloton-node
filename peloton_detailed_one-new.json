@@ -1,0 +1,45 @@
+{
+	"ride": {
+		"id": "15cb779304024a4791f56e4152decb45",
+		"title": "5 min Warm Up Ride",
+		"length": 323,
+		"rating": 0,
+		"distance": null,
+		"duration": 300,
+		"language": "english",
+		"location": "psny-studio-1",
+		"sold_out": false,
+		"is_explicit": true,
+		"distance_unit": null,
+		"instructor_id": "05735e106f0747d2a112d32678be8afd",
+		"origin_locale": "en-US",
+		"total_ratings": 1575,
+		"total_workouts": 1000,
+		"explicit_rating": 1,
+		"home_peloton_id": "00773651b2784d84a91262fb48987a34",
+		"difficulty_level": null,
+		"overall_estimate": 0.9745222929936306,
+		"original_air_time": 1736830800,
+		"pedaling_duration": 300,
+		"overall_rating_avg": 0.9745222929936306,
+		"difficulty_estimate": 5.13135593220339,
+		"total_user_workouts": 0,
+		"overall_rating_count": 314,
+		"scheduled_start_time": 1736830800,
+		"difficulty_rating_avg": 5.13135593220339,
+		"difficulty_rating_count": 236
+	},
+	"averages": {
+		"average_calories": 43,
+		"average_distance": 1.33,
+		"average_avg_power": 111,
+		"average_avg_speed": 16.1,
+		"average_total_work": 33,
+		"average_avg_cadence": 75,
+		"average_effort_score": null,
+		"average_avg_resistance": 41
+	},
+	"playlist": {
+		"id": "a7981526c8f5459d947f344d98a337d7"
+	}
+}

@@ -1,0 +1,85 @@
+{
+	"ride": {
+		"id": "15cb779304024a4791f56e4152decb45",
+		"title": "5 min Warm Up Ride",
+		"length": 323,
+		"rating": 0,
+		"captions": ["en-US"],
+		"duration": 300,
+		"language": "english",
+		"location": "psny-studio-1",
+		"sold_out": false,
+		"instructor": {
+			"id": "05735e106f0747d2a112d32678be8afd"
+		},
+		"instructor_id": "05735e106f0747d2a112d32678be8afd",
+		"origin_locale": "en-US",
+		"total_ratings": 1575,
+		"total_workouts": 1000,
+		"overall_estimate": 0.9745222929936306,
+		"original_air_time": 1736830800,
+		"overall_rating_avg": 0.9745222929936306,
+		"difficulty_estimate": 5.13135593220339,
+		"total_user_workouts": 0,
+		"overall_rating_count": 314,
+		"scheduled_start_time": 1736830800,
+		"difficulty_rating_avg": 5.13135593220339,
+		"difficulty_rating_count": 236
+	},
+	"averages": {
+		"average_calories": 43,
+		"average_distance": 1.33,
+		"average_avg_power": 111,
+		"average_avg_speed": 16.1,
+		"average_total_work": 33,
+		"average_avg_cadence": 75,
+		"average_effort_score": null,
+		"average_avg_resistance": 41,
+		"total_heart_rate_zone_durations": null
+	},
+	"playlist": {
+		"id": "a7981526c8f5459d947f344d98a337d7",
+		"songs": [
+			{
+				"title": "deja vu",
+				"artists": [
+					{
+						"artist_name": "Olivia Rodrigo",
+						"num_rides_with_song_played": 760
+					}
+				]
+			},
+			{
+				"title": "you should see me in a crown",
+				"artists": [
+					{
+						"artist_name": "Billie Eilish",
+						"num_rides_with_song_played": 2057
+					}
+				],
+				"popularity": 76
+			}
+		],
+		"ride_id": "15cb779304024a4791f56e4152decb45",
+		"top_artists": [
+			{
+				"artist_name": "Billie Eilish",
+				"num_rides_with_song_played": 2057
+			},
+			{
+				"artist_name": "Olivia Rodrigo",
+				"num_rides_with_song_played": 760
+			}
+		]
+	},
+	"class_types": [
+		{ "id": "57dbf6f9a4904a9f80e302380855bdb7", "name": "Warm Up Ride" }
+	],
+	"is_power_zone_class": false,
+	"target_metrics_data": {
+		"total_expected_output": {
+			"expected_lower_output": 20,
+			"expected_upper_output": 68
+		}
+	}
+}
