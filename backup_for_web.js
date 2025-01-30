@@ -11,28 +11,29 @@ if(!fs.existsSync(backupsDir)) {
 
 // Generate timestamp for backup file
 const timestamp = new Date().toISOString().replace(/[:.]/g,'-');
-const schemaPath = path.join(backupsDir,`optimized_schema_${timestamp}.sql`);
-const workoutsPath = path.join(backupsDir,`optimized_workouts_${timestamp}.sql`);
-const songsPath = path.join(backupsDir,`optimized_songs_${timestamp}.sql`);
+const schemaPath = path.join(backupsDir,`schema_${timestamp}.sql`);
+const workoutsPath = path.join(backupsDir,`workouts_${timestamp}.sql`);
+const songsPath = path.join(backupsDir,`songs_${timestamp}.sql`);
 
 try {
     // Create schema backup with transaction
     console.log('Creating schema backup...');
-    const schemaCommand = `PGPASSWORD=${process.env.DB_PASSWORD} pg_dump -h ${process.env.DB_HOST} -U ${process.env.DB_USER} -d peloton_detailed -t optimized_workouts -t optimized_songs --schema-only --no-owner --no-acl --no-comments -f ${schemaPath}`;
+    const schemaCommand = `PGPASSWORD=${process.env.DB_PASSWORD} pg_dump -h ${process.env.DB_HOST} -U ${process.env.DB_USER} -d peloton_detailed -t detailed_workouts -t songs -t instructors --schema-only --no-owner --no-acl --no-comments -f ${schemaPath}`;
     execSync(schemaCommand);
 
     // Add transaction boundaries and safe drops to schema
     let schemaContent = fs.readFileSync(schemaPath,'utf8');
     schemaContent = `BEGIN;
-DROP TABLE IF EXISTS public.optimized_songs;
-DROP TABLE IF EXISTS public.optimized_workouts;
+DROP TABLE IF EXISTS public.songs;
+DROP TABLE IF EXISTS public.detailed_workouts;
+DROP TABLE IF EXISTS public.instructors;
 
 ${schemaContent}COMMIT;\n`;
     fs.writeFileSync(schemaPath,schemaContent);
 
     // Create separate backup for workouts
     console.log('Creating workouts backup...');
-    const workoutsCommand = `PGPASSWORD=${process.env.DB_PASSWORD} pg_dump -h ${process.env.DB_HOST} -U ${process.env.DB_USER} -d peloton_detailed -t optimized_workouts --data-only --no-owner --no-acl --no-comments -f ${workoutsPath}`;
+    const workoutsCommand = `PGPASSWORD=${process.env.DB_PASSWORD} pg_dump -h ${process.env.DB_HOST} -U ${process.env.DB_USER} -d peloton_detailed -t detailed_workouts --data-only --no-owner --no-acl --no-comments -f ${workoutsPath}`;
     execSync(workoutsCommand);
 
     // Add transaction boundaries to workouts
@@ -42,7 +43,7 @@ ${schemaContent}COMMIT;\n`;
 
     // Create separate backup for songs
     console.log('Creating songs backup...');
-    const songsCommand = `PGPASSWORD=${process.env.DB_PASSWORD} pg_dump -h ${process.env.DB_HOST} -U ${process.env.DB_USER} -d peloton_detailed -t optimized_songs --data-only --no-owner --no-acl --no-comments -f ${songsPath}`;
+    const songsCommand = `PGPASSWORD=${process.env.DB_PASSWORD} pg_dump -h ${process.env.DB_HOST} -U ${process.env.DB_USER} -d peloton_detailed -t songs --data-only --no-owner --no-acl --no-comments -f ${songsPath}`;
     execSync(songsCommand);
 
     // Add transaction boundaries to songs

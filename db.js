@@ -4,21 +4,21 @@ const {Pool} = require('pg');
 const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
+    database: "peloton_detailed",
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT
 });
 
-// ✅ Create table if it doesn't exist (updated with `instructor_id` & `difficulty_rating_avg`)
+// Create table if it doesn't exist
 async function initDB() {
     const createTableQuery = `
-        CREATE TABLE IF NOT EXISTS workouts (
+        CREATE TABLE IF NOT EXISTS detailed_workouts (
             id TEXT PRIMARY KEY,
             title TEXT,
-            instructor_id TEXT,  -- ✅ Stores only the instructor ID
+            instructor_id TEXT,
             duration INTEGER,
             scheduled_time TIMESTAMP,
-            difficulty_rating_avg NUMERIC, -- ✅ Added difficulty rating
+            difficulty_rating_avg NUMERIC,
             full_details JSONB
         );
     `;
@@ -26,21 +26,21 @@ async function initDB() {
     try {
         const client = await pool.connect();
         await client.query(createTableQuery);
-        console.log("Database initialized (workouts table created if not exists).");
+        console.log("Database initialized (detailed_workouts table created if not exists).");
         client.release();
     } catch(err) {
-        console.error("❌ Database error:",err);
+        console.error("Database error:", err);
     }
 }
 
-// ✅ Function to save workouts to PostgreSQL
+// Function to save workouts to PostgreSQL
 async function saveWorkoutsToDB(workouts) {
     try {
         const client = await pool.connect();
 
         for(const workout of workouts) {
             const query = `
-                INSERT INTO workouts (id, title, instructor_id, duration, scheduled_time, difficulty_rating_avg, full_details)
+                INSERT INTO detailed_workouts (id, title, instructor_id, duration, scheduled_time, difficulty_rating_avg, full_details)
                 VALUES ($1, $2, $3, $4, TO_TIMESTAMP($5), $6, $7)
                 ON CONFLICT (id) DO NOTHING;
             `;
@@ -48,20 +48,20 @@ async function saveWorkoutsToDB(workouts) {
             const values = [
                 workout.id,
                 workout.title || "Unknown",
-                workout.instructor_id || "Unknown",  // ✅ Store only the instructor ID
+                workout.instructor_id || "Unknown",
                 workout.duration,
                 workout.scheduled_start_time,
-                workout.difficulty_rating_avg || null, // ✅ Save difficulty rating
+                workout.difficulty_rating_avg || null,
                 workout
             ];
 
-            await client.query(query,values);
-            console.log(`💾 Saved workout: ${workout.id}`);
+            await client.query(query, values);
+            console.log(`Saved workout: ${workout.id}`);
         }
 
         client.release();
     } catch(err) {
-        console.error("❌ Database error:",err);
+        console.error("Database error:", err);
     }
 }
 

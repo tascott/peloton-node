@@ -15,60 +15,47 @@ A Node.js application that extracts and stores music playlists from Peloton work
 ### File Structure
 ```
 ├── auth.js                 # Peloton authentication handling
-├── db.js                   # Initial workout database operations
-├── db_detailed.js          # Detailed workout database operations
+├── db.js                   # Database operations
 ├── fetchWorkoutDetails.js  # Core API fetching logic
-├── fetchDetailedWorkouts.js# Main processing and detailed DB population
-├── saveWorkouts.js        # Initial workout saving logic
+├── fetchDetailedWorkouts.js# Detailed workout processing
+├── saveWorkouts.js         # Initial workout saving logic
 └── session.json           # Stores authentication session
 ```
 
-### Two-Database Architecture
-The application uses two separate PostgreSQL databases for different stages of data collection:
+### Database Architecture
+The application uses a single PostgreSQL database (`peloton_detailed`) with normalized tables for efficient data storage and retrieval:
 
-1. Initial Database (`peloton_workouts`)
-   - Stores basic workout information from list endpoint
-   - Managed by `db.js`
-   - Acts as a source for workout IDs to process
+1. Detailed Workouts Table
+   - Stores comprehensive workout information
+   - Contains both basic metadata and detailed information
+   - Links to instructors and songs tables
 
-2. Detailed Database (`peloton_detailed`)
-   - Stores comprehensive workout and music information
-   - Managed by `db_detailed.js`
-   - Contains normalized tables for workouts, instructors, and songs
+2. Instructors Table
+   - Stores instructor information
+   - Referenced by detailed workouts table
+
+3. Songs Table
+   - Stores playlist information for each workout
+   - Includes text search capabilities for song and artist lookup
 
 ### Data Flow
 1. Initial Workout List Collection (`saveWorkouts.js`)
    - Fetches paginated workout lists (50 workouts per page)
    - Extracts basic workout metadata (id, title, etc.)
-   - Stores in `peloton_workouts` database
-   - Creates JSON backups in `/workouts_list/`
+   - Stores in `detailed_workouts` table
+   - Skips workouts that already exist in the database
 
 2. Detailed Workout Processing (`fetchDetailedWorkouts.js`)
    - Uses `fetchWorkoutDetails.js` for API calls
-   - Queries `peloton_workouts` database for unprocessed ride IDs
-   - Fetches detailed workout data for each ride ID
-   - Populates `peloton_detailed` database with:
+   - Identifies workouts without full details in the database
+   - Fetches detailed workout data for each workout
+   - Updates the database with:
      - Instructor information
      - Detailed workout metadata
      - Song playlists
 
-### Database Schemas
+### Database Schema
 
-#### Initial Database (peloton_workouts)
-```sql
-CREATE TABLE workouts (
-    id VARCHAR PRIMARY KEY,
-    title VARCHAR,
-    instructor_name VARCHAR,
-    created_at TIMESTAMP,
-    difficulty DECIMAL,
-    length INTEGER,
-    processed BOOLEAN DEFAULT FALSE,
-    processed_at TIMESTAMP
-);
-```
-
-#### Detailed Database (peloton_detailed)
 ```sql
 -- Instructors table
 CREATE TABLE instructors (
@@ -101,7 +88,7 @@ CREATE TABLE songs (
     playlist_order INTEGER
 );
 
--- Indexes for efficient querying
+-- Indexes for performance
 CREATE INDEX idx_songs_artist_names ON songs USING gin (artist_names gin_trgm_ops);
 CREATE INDEX idx_songs_title ON songs(title);
 CREATE INDEX idx_workouts_scheduled_time ON detailed_workouts(scheduled_time);
@@ -116,20 +103,18 @@ CREATE INDEX idx_workouts_instructor ON detailed_workouts(instructor_id);
 ### Processing Flow Example
 ```sql
 -- 1. After initial workout list fetch
-INSERT INTO workouts (id, title, created_at)
+INSERT INTO detailed_workouts (id, title, created_at)
 VALUES ('123', 'Morning Ride', '2024-03-15');
 
 -- 2. Query for unprocessed workouts
-SELECT id FROM workouts WHERE processed = FALSE;
+SELECT id FROM detailed_workouts WHERE full_details IS NULL;
 
 -- 3. After fetching workout details
-UPDATE workouts
+UPDATE detailed_workouts
 SET
-    instructor_name = 'Alex Toussaint',
-    difficulty = 8.2,
-    length = 1800,
-    processed = TRUE,
-    processed_at = CURRENT_TIMESTAMP
+    instructor_id = 'instructor-123',
+    duration = 1800,
+    full_details = '{"key": "value"}'
 WHERE id = '123';
 
 -- 4. Insert associated songs
@@ -151,9 +136,8 @@ VALUES ('123', 'Song Title', 'Artist Name');
 npm install
 ```
 
-3. Set up PostgreSQL databases:
+3. Set up PostgreSQL database:
 ```sql
-CREATE DATABASE peloton_workouts;
 CREATE DATABASE peloton_detailed;
 ```
 
@@ -180,7 +164,7 @@ This will:
 - Authenticate with Peloton using your credentials
 - Create/update `session.json` with your session token
 - Fetch all new workouts from Peloton's API
-- Save basic workout info to the `peloton_workouts` database
+- Save basic workout info to the `detailed_workouts` table
 - Stop when it reaches workouts that are already in the database
 
 ### 2. Detailed Workout Processing
@@ -190,9 +174,9 @@ node fetchDetailedWorkouts.js
 ```
 This will:
 - Use the session token from `session.json`
-- Check `peloton_workouts` database for unprocessed workouts
+- Check `detailed_workouts` table for unprocessed workouts
 - Fetch detailed information for each new workout
-- Save complete workout data, instructor info, and song playlists to `peloton_detailed` database
+- Save complete workout data, instructor info, and song playlists to the database
 
 ### Session Token Management
 - The session token is automatically managed in `session.json`
@@ -212,7 +196,7 @@ This will:
 
 ```bash
 # Fetch and save new workouts
-node saveWorkouts.js          # Fetches and saves new workouts to peloton_workouts
+node saveWorkouts.js          # Fetches and saves new workouts to detailed_workouts
                              # Automatically stops when reaching already saved workouts
 
 # Process detailed workout information
@@ -242,14 +226,10 @@ node fetchDetailedWorkouts.js --force            # Reprocess all workouts, even 
 - Manages session token lifecycle
 - Implements token refresh logic
 
-### Initial Database Operations (`db.js`)
-- Manages PostgreSQL connection pool for `peloton_workouts`
-- Handles transaction management for initial workout data
-- Implements batch inserts for workout lists
-
-### Detailed Database Operations (`db_detailed.js`)
+### Database Operations (`db.js`)
 - Manages PostgreSQL connection pool for `peloton_detailed`
-- Handles transaction management for detailed workout data
+- Handles transaction management for workout data
+- Implements batch inserts for workout lists
 
 ### API Integration
 - `fetchWorkoutDetails.js`: Core API fetching logic for individual workouts
@@ -296,13 +276,13 @@ Response Structure:
 - Primary storage in PostgreSQL
 
 ### Database Backups
-To backup both databases (creates compressed SQL dumps in the `backups` directory):
+To backup the database (creates compressed SQL dumps in the `backups` directory):
 ```bash
 node backup_dbs.js
 ```
 
 This will:
-- Create compressed timestamped backups of both databases
+- Create compressed timestamped backups of the database
 - Store them locally in `./backups/` directory (not version controlled)
 - Include ALL data (including complete JSONB API responses)
 - Use gzip compression for efficient storage

@@ -29,28 +29,28 @@ async function migrateData() {
 
         console.log('Available tables:',tablesResult.rows.map(r => r.table_name))
 
-        // First migrate optimized_workouts
+        // First migrate workouts
         console.log('\nFetching workouts from local database...')
-        const workoutsResult = await localPool.query('SELECT * FROM public.optimized_workouts')
+        const workoutsResult = await localPool.query('SELECT * FROM public.detailed_workouts')
         console.log(`Found ${workoutsResult.rows.length} workouts`)
 
         console.log('Inserting workouts into Supabase...')
         const {data: workoutsData,error: workoutsError} = await supabase
-            .from('optimized_workouts')
+            .from('detailed_workouts')
             .insert(workoutsResult.rows)
             .select()
 
         if(workoutsError) throw workoutsError
         console.log(`Successfully inserted ${workoutsData.length} workouts`)
 
-        // Then migrate optimized_songs
+        // Then migrate songs
         console.log('\nFetching songs from local database...')
-        const songsResult = await localPool.query('SELECT * FROM public.optimized_songs')
+        const songsResult = await localPool.query('SELECT * FROM public.songs')
         console.log(`Found ${songsResult.rows.length} songs`)
 
         console.log('Inserting songs into Supabase...')
         const {data: songsData,error: songsError} = await supabase
-            .from('optimized_songs')
+            .from('songs')
             .insert(songsResult.rows)
             .select()
 

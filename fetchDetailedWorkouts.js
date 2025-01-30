@@ -1,33 +1,56 @@
 require('dotenv').config();
+const { Pool } = require('pg');
 const fs = require('fs');
 const axios = require('axios');
-const {Pool} = require('pg');
-const fetchWorkoutDetails = require('./fetchWorkoutDetails');
 
-// ✅ Database connections
-const poolWorkouts = new Pool({
+const pool = new Pool({
     user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: "peloton_workouts",
     password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME
 });
 
-const poolDetailed = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: "peloton_detailed",
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT
-});
-
-// First, ensure the detailed tables exist
-async function initDetailedTable() {
-    const client = await poolDetailed.connect();
+// ✅ Get session ID from session.json
+function getSessionId() {
     try {
-        // Enable text search extension for better artist name searching
-        await client.query('CREATE EXTENSION IF NOT EXISTS pg_trgm;');
+        const sessionData = JSON.parse(fs.readFileSync('./session.json', 'utf8'));
+        if (!sessionData.session_id) {
+            throw new Error("No session ID found in session.json!");
+        }
+        return sessionData.session_id;
+    } catch (err) {
+        console.error("Error reading session.json:", err.message);
+        process.exit(1);
+    }
+}
 
+// ✅ Fetch workout details from Peloton API
+async function fetchWorkoutDetails(workoutId) {
+    try {
+        const sessionId = getSessionId();
+        const headers = {
+            Cookie: `peloton_session_id=${sessionId}`,
+            Accept: "*/*",
+            Connection: "keep-alive"
+        };
+
+        const response = await axios.get(`https://api.onepeloton.com/api/ride/${workoutId}/details`, {
+            headers
+        });
+
+        console.log(`Successfully fetched details for workout ${workoutId}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching workout ${workoutId}:`, error.response ? error.response.data : error.message);
+        return null;
+    }
+}
+
+// ✅ Initialize database tables if they don't exist
+async function initDetailedTable() {
+    const client = await pool.connect();
+    try {
         await client.query(`
             CREATE TABLE IF NOT EXISTS instructors (
                 id TEXT PRIMARY KEY,
@@ -39,7 +62,6 @@ async function initDetailedTable() {
                 id TEXT PRIMARY KEY,
                 title TEXT,
                 duration INTEGER,
-                image_url TEXT,
                 instructor_id TEXT REFERENCES instructors(id),
                 description TEXT,
                 fitness_discipline TEXT,
@@ -49,42 +71,56 @@ async function initDetailedTable() {
             );
 
             CREATE TABLE IF NOT EXISTS songs (
-                id SERIAL PRIMARY KEY,
-                workout_id TEXT REFERENCES detailed_workouts(id) ON DELETE CASCADE,
+                workout_id TEXT REFERENCES detailed_workouts(id),
                 title TEXT,
                 artist_names TEXT,
                 image_url TEXT,
-                playlist_order INTEGER
+                playlist_order INTEGER,
+                UNIQUE(workout_id, title)
             );
 
             CREATE INDEX IF NOT EXISTS idx_songs_artist_names ON songs USING gin (artist_names gin_trgm_ops);
             CREATE INDEX IF NOT EXISTS idx_songs_title ON songs(title);
             CREATE INDEX IF NOT EXISTS idx_workouts_scheduled_time ON detailed_workouts(scheduled_time);
-            CREATE INDEX IF NOT EXISTS idx_workouts_instructor ON detailed_workouts(instructor_id);
         `);
     } finally {
         client.release();
     }
 }
 
-// ✅ Fetch all workout IDs from first DB
+// ✅ Fetch all workout IDs from database
 async function fetchAndSaveDetailedWorkouts() {
-    console.log("📥 Fetching all workout IDs from first database (peloton_workouts)...");
+    console.log("📥 Fetching all workout IDs from database...");
 
-    const clientOld = await poolWorkouts.connect();
-    const clientNew = await poolDetailed.connect();
-
+    const client = await pool.connect();
     try {
-        // Get IDs of already saved detailed workouts
-        const existingRes = await clientNew.query('SELECT id FROM detailed_workouts');
-        const existingWorkoutIds = new Set(existingRes.rows.map(row => row.id));
-        console.log(`📊 Found ${existingWorkoutIds.size} already processed workouts in detailed database`);
-
-        // Get all workouts from first database
-        const res = await clientOld.query('SELECT id, title, scheduled_time FROM workouts');
+        // Get IDs of workouts that don't have songs yet
+        const res = await client.query(`
+            WITH latest_song AS (
+                SELECT MAX(dw.scheduled_time) - INTERVAL '1 day' as cutoff_date
+                FROM songs s
+                JOIN detailed_workouts dw ON s.workout_id = dw.id
+            ),
+            workout_song_counts AS (
+                SELECT 
+                    dw.id,
+                    dw.title,
+                    dw.scheduled_time,
+                    COUNT(s.workout_id) as song_count
+                FROM detailed_workouts dw
+                LEFT JOIN songs s ON dw.id = s.workout_id
+                GROUP BY dw.id, dw.title, dw.scheduled_time
+            )
+            SELECT id, title, scheduled_time
+            FROM workout_song_counts, latest_song
+            WHERE song_count = 0
+              AND scheduled_time >= latest_song.cutoff_date
+            ORDER BY scheduled_time DESC;
+        `);
+        
         const workouts = res.rows;
-        console.log(`📊 Found ${workouts.length} total workouts in initial database`);
-        console.log(`📊 Need to process ${workouts.length - existingWorkoutIds.size} workouts\n`);
+        console.log(`📊 Found ${workouts.length} workouts that need song data`);
+        console.log(`\n`);
 
         let processed = 0;
         let skipped = 0;
@@ -92,13 +128,7 @@ async function fetchAndSaveDetailedWorkouts() {
 
         for(const workout of workouts) {
             try {
-                if(existingWorkoutIds.has(workout.id)) {
-                    skipped++;
-                    process.stdout.write(`\r⏭ Skipped: ${skipped}, Processed: ${processed}, Failed: ${failed}`);
-                    continue;
-                }
-
-                console.log(`\n\n🔄 Fetching detailed data for workout ${workout.id}...`);
+                console.log(`\n🔄 Fetching detailed data for workout ${workout.id}...`);
                 const details = await fetchWorkoutDetails(workout.id);
 
                 if(!details || !details.ride) {
@@ -107,7 +137,7 @@ async function fetchAndSaveDetailedWorkouts() {
                     continue;
                 }
 
-                await clientNew.query('BEGIN');
+                await client.query('BEGIN');
 
                 // First, ensure instructor exists
                 if (details.ride.instructor) {
@@ -116,42 +146,12 @@ async function fetchAndSaveDetailedWorkouts() {
                         VALUES ($1, $2, $3)
                         ON CONFLICT (id) DO NOTHING;
                     `;
-                    await clientNew.query(insertInstructorQuery, [
+                    await client.query(insertInstructorQuery, [
                         details.ride.instructor.id,
                         details.ride.instructor.name,
                         details.ride.instructor.image_url || null
                     ]);
                 }
-
-                // Insert workout details
-                const insertWorkoutQuery = `
-                    INSERT INTO detailed_workouts (
-                        id,
-                        title,
-                        duration,
-                        image_url,
-                        instructor_id,
-                        description,
-                        fitness_discipline,
-                        scheduled_time,
-                        difficulty_rating_avg,
-                        full_details
-                    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-                    RETURNING id;
-                `;
-
-                await clientNew.query(insertWorkoutQuery, [
-                    details.ride.id,
-                    details.ride.title,
-                    details.ride.duration,
-                    details.ride.image_url,
-                    details.ride.instructor?.id || null,
-                    details.ride.description,
-                    details.ride.fitness_discipline,
-                    new Date(details.ride.scheduled_start_time * 1000),
-                    details.ride.difficulty_rating_avg,
-                    details
-                ]);
 
                 // Insert songs with artist information
                 if (details.playlist && details.playlist.songs) {
@@ -162,7 +162,12 @@ async function fetchAndSaveDetailedWorkouts() {
                             artist_names,
                             image_url,
                             playlist_order
-                        ) VALUES ($1, $2, $3, $4, $5);
+                        ) 
+                        SELECT $1, $2, $3, $4, $5
+                        WHERE NOT EXISTS (
+                            SELECT 1 FROM songs 
+                            WHERE workout_id = $1 AND title = $2
+                        )
                     `;
 
                     for (let i = 0; i < details.playlist.songs.length; i++) {
@@ -177,7 +182,7 @@ async function fetchAndSaveDetailedWorkouts() {
                         // Use the first artist's image_url if available
                         const imageUrl = song.artists[0]?.image_url || null;
 
-                        await clientNew.query(insertSongQuery, [
+                        await client.query(insertSongQuery, [
                             details.ride.id,
                             song.title,
                             artistNames,
@@ -187,8 +192,8 @@ async function fetchAndSaveDetailedWorkouts() {
                     }
                 }
 
-                await clientNew.query('COMMIT');
-                console.log(`✅ Saved detailed data for workout ${workout.id}`);
+                await client.query('COMMIT');
+                console.log(`✅ Saved song data for workout ${workout.id}`);
                 console.log(`📊 Progress - Skipped: ${skipped}, Processed: ${processed}, Failed: ${failed}`);
 
                 // Rate limiting
@@ -197,7 +202,7 @@ async function fetchAndSaveDetailedWorkouts() {
                 processed++;
 
             } catch(err) {
-                await clientNew.query('ROLLBACK');
+                await client.query('ROLLBACK');
                 console.error(`❌ Error processing workout ${workout.id}:`, err);
                 failed++;
                 continue;
@@ -213,10 +218,11 @@ async function fetchAndSaveDetailedWorkouts() {
     } catch(err) {
         console.error("❌ Error during migration:", err);
     } finally {
-        clientOld.release();
-        clientNew.release();
+        client.release();
     }
 }
 
-// ✅ Run function
-fetchAndSaveDetailedWorkouts();
+// ✅ Initialize tables and start processing
+initDetailedTable()
+    .then(() => fetchAndSaveDetailedWorkouts())
+    .catch(err => console.error("❌ Error:", err));
