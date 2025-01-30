@@ -19,6 +19,9 @@ async function initDB() {
             duration INTEGER,
             scheduled_time TIMESTAMP,
             difficulty_rating_avg NUMERIC,
+            description TEXT,
+            fitness_discipline TEXT,
+            image_url TEXT,
             full_details JSONB
         );
     `;
@@ -40,8 +43,19 @@ async function saveWorkoutsToDB(workouts) {
 
         for(const workout of workouts) {
             const query = `
-                INSERT INTO detailed_workouts (id, title, instructor_id, duration, scheduled_time, difficulty_rating_avg, full_details)
-                VALUES ($1, $2, $3, $4, TO_TIMESTAMP($5), $6, $7)
+                INSERT INTO detailed_workouts (
+                    id, 
+                    title, 
+                    instructor_id, 
+                    duration, 
+                    scheduled_time, 
+                    difficulty_rating_avg,
+                    description,
+                    fitness_discipline,
+                    image_url,
+                    full_details
+                )
+                VALUES ($1, $2, $3, $4, TO_TIMESTAMP($5), $6, $7, $8, $9, $10)
                 ON CONFLICT (id) DO NOTHING;
             `;
 
@@ -52,6 +66,9 @@ async function saveWorkoutsToDB(workouts) {
                 workout.duration,
                 workout.scheduled_start_time,
                 workout.difficulty_rating_avg || null,
+                workout.description || null,
+                workout.fitness_discipline || null,
+                workout.image_url || null,
                 workout
             ];
 
