@@ -12,11 +12,9 @@ if (!fs.existsSync(BACKUP_DIR)) {
 // Get timestamp for backup files
 const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 
-// Database configurations
-const databases = [
-    { name: 'peloton_workouts', file: `peloton_workouts_${timestamp}.sql.gz` },
-    { name: 'peloton_detailed', file: `peloton_detailed_${timestamp}.sql.gz` }
-];
+// Database configuration
+const dbName = 'peloton_detailed';
+const backupFile = `peloton_detailed_${timestamp}.sql.gz`;
 
 // Create backup function
 function backupDatabase(dbName, backupFile) {
@@ -43,15 +41,13 @@ function backupDatabase(dbName, backupFile) {
     });
 }
 
-// Run backups
-async function runBackups() {
+// Run backup
+async function runBackup() {
     try {
-        for (const db of databases) {
-            await backupDatabase(db.name, db.file);
-        }
+        await backupDatabase(dbName, backupFile);
         console.log('\n📊 Backup Summary:');
         console.log('Backup location:', path.resolve(BACKUP_DIR));
-        console.log('Databases backed up:', databases.map(db => db.name).join(', '));
+        console.log('Database backed up:', dbName);
         console.log('Timestamp:', timestamp);
     } catch (error) {
         console.error('❌ Backup process failed:', error);
@@ -59,4 +55,4 @@ async function runBackups() {
     }
 }
 
-runBackups();
+runBackup();
