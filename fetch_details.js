@@ -3,7 +3,7 @@ const axios = require('axios');
 const fs = require('fs');
 const readline = require('readline');
 
-const RIDE_DETAILS_URL = 'https://api.onepeloton.com/api/workout/';
+const RIDE_DETAILS_URL = 'https://api.onepeloton.com/api/ride/';
 
 // Create readline interface
 const rl = readline.createInterface({
@@ -27,8 +27,8 @@ async function fetchWorkoutDetails(workoutId) {
     }
 
     try {
-        const response = await axios.get(`${RIDE_DETAILS_URL}${workoutId}`, {
             headers: { Cookie: `peloton_session_id=${sessionId}` }
+        const response = await axios.get(`${RIDE_DETAILS_URL}${workoutId}/details`,{
         });
 
         // Pretty print the result
