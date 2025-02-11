@@ -27,20 +27,24 @@ async function fetchWorkoutDetails(workoutId) {
     }
 
     try {
-            headers: { Cookie: `peloton_session_id=${sessionId}` }
-        const response = await axios.get(`${RIDE_DETAILS_URL}${workoutId}/details`,{
-        });
+        const headers = {
+            Cookie: `peloton_session_id=${sessionId}`,
+            Accept: "*/*",
+            Connection: "keep-alive"
+        };
+
+        const response = await axios.get(`${RIDE_DETAILS_URL}${workoutId}/details`,{headers});
 
         // Pretty print the result
-        console.log(JSON.stringify(response.data, null, 2));
+        console.log(JSON.stringify(response.data,null,2));
 
-    } catch (error) {
-        console.error('❌ Error:', error.response?.data || error.message);
+    } catch(error) {
+        console.error('❌ Error:',error.response?.data || error.message);
     }
 }
 
 // Prompt for workout ID
-rl.question('Enter workout ID: ', (workoutId) => {
+rl.question('Enter workout ID: ',(workoutId) => {
     fetchWorkoutDetails(workoutId).then(() => {
         rl.close();
     });
