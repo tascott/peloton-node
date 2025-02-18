@@ -10,7 +10,7 @@ async function fetchAndSaveWorkouts() {
     await initDB();  // Ensure DB is initialized
 
     const SESSION_ID = await authenticatePeloton();
-    console.log("\n Using Session ID:", SESSION_ID);
+    console.log("\n Using Session ID:",SESSION_ID);
 
     let page = 0;
     let totalFetched = 0;
@@ -32,7 +32,7 @@ async function fetchAndSaveWorkouts() {
         console.log(`\n Fetching page ${page}...`);
 
         try {
-            const response = await axios.get(url, {headers});
+            const response = await axios.get(url,{headers});
 
             if(!response.data.data || response.data.data.length === 0) {
                 console.log(" No more workouts available. Stopping.");
@@ -44,7 +44,7 @@ async function fetchAndSaveWorkouts() {
 
             console.log(` Found ${workouts.length} workouts on page ${page}`);
             console.log(`   First workout: ${workouts[0].title} (${new Date(workouts[0].scheduled_start_time * 1000).toISOString()})`);
-            console.log(`   Last workout: ${workouts[workouts.length-1].title} (${new Date(workouts[workouts.length-1].scheduled_start_time * 1000).toISOString()})`);
+            console.log(`   Last workout: ${workouts[workouts.length - 1].title} (${new Date(workouts[workouts.length - 1].scheduled_start_time * 1000).toISOString()})`);
 
             let newEntries = 0;
             let existingOnPage = 0;
@@ -56,6 +56,32 @@ async function fetchAndSaveWorkouts() {
                 } else {
                     existingOnPage++;
                     totalExisting++;
+                }
+
+                // Add this before the insert to debug
+                console.log('Workout data:',{
+                    id: workout.id,
+                    instructor_id: workout.instructor_id
+                });
+
+                // Before saving workouts, save instructor
+                const insertInstructorQuery = `
+                    INSERT INTO instructors (id, name)
+                    VALUES ($1, $2)
+                    ON CONFLICT (id) DO NOTHING;
+                `;
+
+                // For each workout that has an instructor
+                if(workout.instructor_id) {
+                    const client = await pool.connect();
+                    try {
+                        await client.query(insertInstructorQuery,[
+                            workout.instructor_id,
+                            workout.instructor?.name || 'Unknown Instructor'
+                        ]);
+                    } finally {
+                        client.release();
+                    }
                 }
             }
 
@@ -72,10 +98,10 @@ async function fetchAndSaveWorkouts() {
             console.log(` Saved ${newEntries} new workouts to DB.`);
 
             page++;
-            await new Promise(resolve => setTimeout(resolve, RATE_LIMIT_DELAY));
+            await new Promise(resolve => setTimeout(resolve,RATE_LIMIT_DELAY));
 
         } catch(error) {
-            console.error(" Fetch error:", error.response ? error.response.data : error.message);
+            console.error(" Fetch error:",error.response ? error.response.data : error.message);
             break;
         }
     }
@@ -91,7 +117,7 @@ async function fetchAndSaveWorkouts() {
 async function checkIfWorkoutExists(workoutId) {
     const client = await pool.connect();
     try {
-        const res = await client.query("SELECT 1 FROM detailed_workouts WHERE id = $1 LIMIT 1;", [workoutId]);
+        const res = await client.query("SELECT 1 FROM detailed_workouts WHERE id = $1 LIMIT 1;",[workoutId]);
         return res.rowCount > 0;
     } finally {
         client.release();
